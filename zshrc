@@ -65,14 +65,15 @@ man() {
 
 export FZF_DEFAULT_OPTS='--height 40% --color=16'
 echo $HOME > /tmp/path
-alias correct="rm /tmp/path && ./lab5helper.sh check | fzf > /tmp/path && cd $(cat /tmp/path)"
+alias install="sudo pacman -S"
+alias uninstall="sudo pacman -Rns"
+alias update="sudo pacman -Syyu"
 alias :q="exit"
 alias vi='nvim'
 alias vim='nvim'
 alias edit='nvim $(fzf)'
 alias goto='cd "$(ls -d */**/ | fzf)"'
 alias nav='lf -last-dir-path /tmp/lf-path && cd $(cat /tmp/lf-path)'
-#alias ranger='lf'
 alias view='zathura'
 alias ls='ls --color=auto'
 alias xclip='xclip -selection clipboard'
@@ -103,14 +104,17 @@ setopt PROMPT_SUBST
 PROMPT='$(show_git_status)%f[%B%F{blue}$(date +"%H:%M")%f%b] %B%F{blue}%2~%f%b%F{green} %B$%b %f'
 RPROMPT='%F{blue}$?'
 
-# if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-# 	exec startx 1>> .tempx
-# 	# Synaptics stuff
-# 	synclient HorizTwoFingerScroll=1 VertTwoFingerScroll=1
-# 	synclient VertScrollDelta=-112 TapButton1=1 TapButton2=2
-# fi
+if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+	exec startx 1>> .tempx
+	# Synaptics stuff
+fi
+synclient HorizTwoFingerScroll=1 VertTwoFingerScroll=1
+synclient VertScrollDelta=-112 TapButton1=1 TapButton2=2
+setxkbmap se
+setxkbmap -option caps:escape
 
 GPG_TTY=$(tty)
 export GPG_TTY
+export XDG_DATA_HOME=$HOME/.local/share
 
-export PATH=/home/ed/.nimble/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ed/Apps:/home/ed/.local/bin:/home/ed/Apps:/home/ed/.local/bin
+export PATH=/home/ed/.nimble/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ed/Apps:/home/ed/.local/bin:/home/ed/Apps:/home/ed/.local/bin:/home/ed/.cargo/bin
