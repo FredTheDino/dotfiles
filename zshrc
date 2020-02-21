@@ -92,7 +92,7 @@ show_git_status() {
 		GIT_BRANCH=$( git branch | grep "*" | cut -c 3- )
 
 		if [[ -z $GIT_DIRTY ]]; then
-			GIT="%f[%B%F{yellow}$GIT_BRANCH%f%b]"
+			GIT="%f[%B%F{green}$GIT_BRANCH%f%b]"
 		else
 			GIT="%f[%B%F{red}*$GIT_BRANCH*%f%b]"
 		fi
