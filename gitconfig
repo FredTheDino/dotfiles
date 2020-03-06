@@ -1,0 +1,19 @@
+[user]
+	email = edvard.thornros@gmail.com
+	name = Edvard Thörnros
+[log]
+	abbrevCommit = true
+	oneline = true
+	graph = true
+[core]
+    hooksPath = ~/.config/git/hooks
+[add]
+	verbose = true
+[push]
+    default = tracking
+    followTags = true
+[commit]
+    verbose = true
+    #gpgsign = true
+[status]
+	short = true

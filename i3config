@@ -212,6 +212,7 @@ bindsym $mod+d exec i3-dmenu-desktop --dmenu='dmenu -l 10 -i -fn Monaco-12 -nb "
 #	separator_symbol " "
 #}
 
+exec --no-startup-id bar.sh
 exec --no-startup-id feh --bg-scale ~/.config/wallpaper/wall.png
 exec --no-startup-id compton -CG -D 5 --fade-in-step=0.03 --fade-out-step=0.03
 exec --no-startup-id xbanish -i mod4

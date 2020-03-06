@@ -50,6 +50,7 @@ alias hibernate="sudo systemctl suspend"
 export EDITOR="/usr/bin/nvim"
 export BROWSER="/usr/bin/firefox"
 export TERMINAL="st"
+export DOTS="/home/ed/.config/dotfiles"
 
 export PATH=$PATH:~/Apps:~/.local/bin:
 
@@ -85,19 +86,19 @@ alias unread='echo "$(notmuch search tag:unread | wc -l) unread mails"'
 alias pull_mail='mbsync -a && notmuch new && notmuch tag +liu to:edvth289@student.liu.se && notmuch tag +lithekod to:kassor@lithekod.se && notmuch tag +personal to:edvard.thornros@gmail.com && unread'
 
 show_git_status() {
-	IS_GIT=$( if [[ -d .git ]]; then echo "GIT"; fi )
-	GIT=""
-	if ! [[ -z $IS_GIT ]]; then
-		GIT_DIRTY=$( git diff HEAD )
-		GIT_BRANCH=$( git branch | grep "*" | cut -c 3- )
+    IS_GIT=$( if [[ -d .git ]]; then echo "GIT"; fi )
+    GIT=""
+    if ! [[ -z $IS_GIT ]]; then
+        GIT_BRANCH=$( git branch | grep "*" | cut -c 3- )
 
-		if [[ -z $GIT_DIRTY ]]; then
-			GIT="%f[%B%F{green}$GIT_BRANCH%f%b]"
-		else
-			GIT="%f[%B%F{red}*$GIT_BRANCH*%f%b]"
-		fi
-	fi
-	echo -e "$GIT"
+        $(git diff --no-ext-diff --quiet)
+        if [[ $? -eq 0 ]]; then
+            GIT="%f[%B%F{green}$GIT_BRANCH%f%b]"
+        else
+            GIT="%f[%B%F{red}*$GIT_BRANCH*%f%b]"
+        fi
+    fi
+    echo -e "$GIT"
 }
 
 setopt PROMPT_SUBST
@@ -105,8 +106,8 @@ PROMPT='$(show_git_status)%f[%B%F{blue}$(date +"%H:%M")%f%b] %B%F{blue}%2~%f%b%F
 RPROMPT='%F{blue}$?'
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-	exec startx 1>> .tempx
-	# Synaptics stuff
+    exec startx 1>> .tempx
+    # Synaptics stuff
 fi
 synclient HorizTwoFingerScroll=1 VertTwoFingerScroll=1
 synclient VertScrollDelta=-112 TapButton1=1 TapButton2=2

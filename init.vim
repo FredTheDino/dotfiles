@@ -46,15 +46,13 @@ if dein#load_state('/home/ed/.config/nvim/dein-cache')
     call dein#add('vim-airline/vim-airline')
     call dein#add('vim-airline/vim-airline-themes')
 
-    " call dein#add('https://github.com/adelarsq/vim-matchit')
-
-    " Hmmmm, Email in vim?
-    call dein#add("felipec/notmuch-vim")
+    call dein#add('suan/vim-instant-markdown')
 
     " Required:
     call dein#end()
     call dein#save_state()
 endif
+
 
 " Git gutter
 set updatetime=150
@@ -85,7 +83,7 @@ let g:airline_powerline_fonts = 0
 let g:airline_skip_empty_sections = 1
 let g:airline_detect_spelllang = 0
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline_theme='bubblegum'
+let g:airline_theme='murmur'
 
 "let g:python_support_python2_require = 0
 "let g:gutentags_ctags_exclude = ['res/**/*', 'inc/**/*', 'bin/**/*', 'tmp/**/*']
@@ -141,10 +139,10 @@ set scrolloff=5
 
 set inccommand=split
 
-colorscheme dim
+colorscheme default
 
 " Theme tweaks
-autocmd FileType html,c,cpp,java,python autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType rust,html,c,cpp,java,python autocmd BufWritePre <buffer> %s/\s\+$//e
 hi LineNr ctermbg=Black
 
 
