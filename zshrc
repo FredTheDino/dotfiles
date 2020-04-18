@@ -86,6 +86,8 @@ export HERE='Linköping'
 alias weather='curl http://v2.wttr.in/$HERE'
 alias ocd='openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg'
 alias unread='echo "$(notmuch search tag:unread | wc -l) unread mails"'
+alias plexstart="systemctl start plexmediaserver.service && firefox http://localhost:32400/web/"
+alias plexstop="systemctl stop plexmediaserver.service"
 alias pull_mail='mbsync -a && notmuch new && notmuch tag +liu to:edvth289@student.liu.se && notmuch tag +lithekod to:kassor@lithekod.se && notmuch tag +personal to:edvard.thornros@gmail.com && unread'
 
 show_git_status() {
@@ -106,6 +108,10 @@ show_git_status() {
 
 show_ssh() {
     return $([[ -n $SSH_CONNECTION ]] && echo '!' || echo '')
+}
+
+bat() {
+    cat /sys/class/power_supply/BAT0/capacity
 }
 
 setopt PROMPT_SUBST

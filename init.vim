@@ -14,7 +14,7 @@ if dein#load_state('/home/ed/.config/nvim/dein-cache')
     call dein#add('/home/ed/.config/nvim/dein-cache/repos/github.com/Shougo/dein.vim')
 
     " Gutentags.
-    call dein#add('ludovicchabant/vim-gutentags')
+    " call dein#add('ludovicchabant/vim-gutentags')
 
     " GLSL highlighting, it's so nice to have.
     call dein#add('tikhomirov/vim-glsl')
@@ -87,9 +87,11 @@ let g:airline_theme='murmur'
 
 "let g:python_support_python2_require = 0
 "let g:gutentags_ctags_exclude = ['res/**/*', 'inc/**/*', 'bin/**/*', 'tmp/**/*']
-let g:gutentags_ctags_extra_args = ['-R', '--exclude=res', '--exclude=bin', '--exclude=inc', '--exclude=.git']
-let g:gutentags_cache_dir = "~/.config/nvim/tag_files"
+"let g:gutentags_ctags_extra_args = ['-R', '--exclude=res', '--exclude=bin', '--exclude=inc', '--exclude=.git']
+"let g:gutentags_cache_dir = "~/.config/nvim/tag_files"
 
+" Leave this traling whitespace alone.
+nnoremap <F8> <ESC>:!ctags -R 
 nnoremap <F3> <ESC>:vert new<CR><C-o>:term python -i %<CR>a
 nnoremap <F5> <ESC>:make<CR>
 nnoremap <F6> <ESC>:make run<CR>

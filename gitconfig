@@ -1,6 +1,7 @@
 [user]
 	email = edvard.thornros@gmail.com
 	name = Edvard Thörnros
+	signingkey = 25339906C233EAEDC4B001FCB10C9CAD881605D0
 [log]
 	abbrevCommit = true
 	oneline = true
@@ -9,11 +10,16 @@
     hooksPath = ~/.config/git/hooks
 [add]
 	verbose = true
+[pull]
+    rebase = true
 [push]
     default = tracking
     followTags = true
 [commit]
     verbose = true
-    #gpgsign = true
+    gpgsign = true
 [status]
 	short = true
+
+[rerere]
+    enable = true
