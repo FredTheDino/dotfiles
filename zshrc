@@ -107,7 +107,7 @@ show_git_status() {
 }
 
 show_ssh() {
-    return $([[ -n $SSH_CONNECTION ]] && echo '!' || echo '')
+    return $([[ -n $SSH_CONNECTION ]] && echo '\!' || echo '')
 }
 
 bat() {
