@@ -103,11 +103,14 @@ show_git_status() {
             GIT="%f[%B%F{red}*$GIT_BRANCH*%f%b]"
         fi
     fi
-    echo -e "$GIT"
+    echo -n -e "$GIT"
 }
 
 show_ssh() {
-    return $([[ -n $SSH_CONNECTION ]] && echo '\!' || echo '')
+    if [[ -n $SSH_CONNECTION ]]; then
+        echo -n -e ""
+    fi
+    echo -n -e "%f%B%F{red}##%f%b"
 }
 
 bat() {
