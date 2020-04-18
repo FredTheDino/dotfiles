@@ -43,6 +43,9 @@ bindkey -e
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+bindkey "^b" backward-word
+bindkey "^w" forward-word
+
 alias reboot="sudo systemctl reboot"
 alias poweroff="sudo systemctl poweroff"
 alias hibernate="sudo systemctl suspend"
@@ -101,18 +104,25 @@ show_git_status() {
     echo -e "$GIT"
 }
 
+show_ssh() {
+    return $([[ -n $SSH_CONNECTION ]] && echo '!' || echo '')
+}
+
 setopt PROMPT_SUBST
-PROMPT='$(show_git_status)%f[%B%F{blue}$(date +"%H:%M")%f%b] %B%F{blue}%2~%f%b%F{green} %B$%b %f'
+PROMPT='$(show_ssh)$(show_git_status)%f[%B%F{blue}$(date +"%H:%M")%f%b] %B%F{blue}%2~%f%b%F{green} %B$%b %f'
 RPROMPT='%F{blue}$?'
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx 1>> .tempx
     # Synaptics stuff
+
+    if [ -x synclient ]; then
+	    synclient HorizTwoFingerScroll=1 VertTwoFingerScroll=1
+	    synclient VertScrollDelta=-112 TapButton1=1 TapButton2=2
+    fi
+
 fi
-synclient HorizTwoFingerScroll=1 VertTwoFingerScroll=1
-synclient VertScrollDelta=-112 TapButton1=1 TapButton2=2
-setxkbmap se
-setxkbmap -option caps:escape
+
 
 GPG_TTY=$(tty)
 export GPG_TTY
