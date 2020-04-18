@@ -108,9 +108,9 @@ show_git_status() {
 
 show_ssh() {
     if [[ -n $SSH_CONNECTION ]]; then
-        echo -n -e ""
+        echo -n -e "%f%B%F{red}##%f%b"
     fi
-    echo -n -e "%f%B%F{red}##%f%b"
+    echo -n -e ""
 }
 
 bat() {
