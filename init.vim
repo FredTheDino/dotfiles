@@ -42,20 +42,12 @@ if dein#load_state('/home/ed/.config/nvim/dein-cache')
     " Better dimming
     call dein#add('jeffkreeftmeijer/vim-dim')
 
-    " Airline
-    call dein#add('vim-airline/vim-airline')
-    call dein#add('vim-airline/vim-airline-themes')
-
-    call dein#add('suan/vim-instant-markdown')
-
     " Required:
     call dein#end()
     call dein#save_state()
 endif
 
-
-" Git gutter
-set updatetime=150
+colorscheme default
 
 " nnoremap cf :<C-u>ClangFormat<CR>
 let g:clang_format#style_options = {
@@ -79,11 +71,11 @@ let g:clang_format#style_options = {
             \ "TabWidth": "4"}
 
 
-let g:airline_powerline_fonts = 0
-let g:airline_skip_empty_sections = 1
-let g:airline_detect_spelllang = 0
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline_theme='murmur'
+" let g:airline_powerline_fonts = 0
+" let g:airline_skip_empty_sections = 1
+" let g:airline_detect_spelllang = 0
+" let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+" let g:airline_theme='murmur'
 
 "let g:python_support_python2_require = 0
 "let g:gutentags_ctags_exclude = ['res/**/*', 'inc/**/*', 'bin/**/*', 'tmp/**/*']
@@ -107,11 +99,24 @@ nnoremap <C-f> <ESC>:Files<CR>
 nnoremap <C-b> <ESC>:Buffers<CR>
 nnoremap <C-n> <ESC>:Tags<CR>
 nnoremap <C-q> <ESC>:Lines<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 "nnoremap <C-m> <ESC>:Marks<CR>
 nnoremap <C-w><C-n> <ESC>:vert new<CR>
 nnoremap <C-s> :update<CR>
+nnoremap <Enter> :call ToggleSpell()<CR>
 inoremap <C-s> <ESC>:update<CR>i
 tnoremap <C-C> <C-\><C-n>
+
+function! ToggleSpell()
+    if (&spell)
+        setlocal nospell
+    else
+        setlocal spell
+    endif
+endfunction
 
 if dein#check_install()
     call dein#install()
@@ -141,12 +146,44 @@ set scrolloff=5
 
 set inccommand=split
 
-colorscheme default
 
 " Theme tweaks
 autocmd FileType rust,html,c,cpp,java,python autocmd BufWritePre <buffer> %s/\s\+$//e
-hi LineNr ctermbg=Black
+hi LineNr ctermbg=Black ctermfg=7
 
+function ShowFileFormatFlag(var)
+  if ( a:var == 'dos' )
+    return '[dos]'
+  elseif ( a:var == 'mac' )
+    return '[mac]'
+  else
+    return ''
+  endif
+endfunction
 
-" I always want my spell checker to be on, I am a notoriously bad speller.
-set nospell
+highlight StatusLine          cterm=bold    ctermfg=16 ctermbg=13
+highlight StatusLineNC        cterm=inverse ctermfg=16 ctermbg=13
+set statusline=
+" Left side
+set statusline+=%(%m%r%)
+set statusline+=%{ShowFileFormatFlag(&fileformat)}
+set statusline+=%(%q%h%)
+set statusline+=%y
+set statusline+=%=
+" Middle section
+set statusline+=%f
+set statusline+=%=
+" Right side
+set statusline+=%c\ %03(%l%)/%-3(%L%)\ 
+
+" I always want my spell checker to be on, I am a notoriously bad speller... 
+set nospell spelllang=en_us
+
+" Git gutter
+set updatetime=150
+hi GitGutterAdd    ctermfg=2
+hi GitGutterChange ctermfg=3
+hi GitGutterDelete ctermfg=1
+" Why does this have to be here? I don't know, if you place it further up it
+" doesn't work...
+hi SignColumn cterm=NONE ctermbg=0 ctermfg=0

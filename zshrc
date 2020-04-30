@@ -76,10 +76,10 @@ alias :q="exit"
 alias vi='nvim'
 alias vim='nvim'
 alias edit='nvim $(fzf)'
-alias goto='cd "$(ls -d */**/ | fzf)"'
+alias goto='cd "$(exa -d */**/ | fzf)"'
 alias nav='lf -last-dir-path /tmp/lf-path && cd $(cat /tmp/lf-path)'
 alias view='zathura'
-alias ls='ls --color=auto'
+alias ls='exa'
 alias xclip='xclip -selection clipboard'
 alias conn='sudo netctl switch-to'
 export HERE='Linköping'
@@ -89,6 +89,14 @@ alias unread='echo "$(notmuch search tag:unread | wc -l) unread mails"'
 alias plexstart="systemctl start plexmediaserver.service && firefox http://localhost:32400/web/"
 alias plexstop="systemctl stop plexmediaserver.service"
 alias pull_mail='mbsync -a && notmuch new && notmuch tag +liu to:edvth289@student.liu.se && notmuch tag +lithekod to:kassor@lithekod.se && notmuch tag +personal to:edvard.thornros@gmail.com && unread'
+alias countdown="countdown.py"
+
+alias g="git"
+alias gs="git status"
+alias gc="git commit"
+alias gg="git grep"
+alias go="git checkout"
+alias gb="git branch"
 
 show_git_status() {
     IS_GIT=$( if [[ -d .git ]]; then echo "GIT"; fi )
