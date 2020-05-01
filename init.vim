@@ -3,15 +3,15 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/home/ed/.config/nvim/dein-cache/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.config/nvim/dein-cache/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('/home/ed/.config/nvim/dein-cache')
-    call dein#begin('/home/ed/.config/nvim/dein-cache')
+if dein#load_state('$HOME/.config/nvim/dein-cache')
+    call dein#begin('$HOME/.config/nvim/dein-cache')
 
     " Let dein manage dein
     " Required:
-    call dein#add('/home/ed/.config/nvim/dein-cache/repos/github.com/Shougo/dein.vim')
+    call dein#add('$HOME/.config/nvim/dein-cache/repos/github.com/Shougo/dein.vim')
 
     " Gutentags.
     " call dein#add('ludovicchabant/vim-gutentags')
