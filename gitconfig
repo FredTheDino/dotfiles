@@ -17,7 +17,7 @@
     followTags = true
 [commit]
     verbose = true
-    gpgsign = true
+    gpgsign = false
 [status]
 	short = true
 

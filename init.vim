@@ -2,50 +2,40 @@ if &compatible
     set nocompatible  " Be iMproved
 endif
 
-" Required:
-set runtimepath+=$HOME/.config/nvim/dein-cache/repos/github.com/Shougo/dein.vim
+call plug#begin('~/.config/nvim/plugged')
 
-" Required:
-if dein#load_state('$HOME/.config/nvim/dein-cache')
-    call dein#begin('$HOME/.config/nvim/dein-cache')
+" Gutentags.
+" Plug 'ludovicchabant/vim-gutentags')
 
-    " Let dein manage dein
-    " Required:
-    call dein#add('$HOME/.config/nvim/dein-cache/repos/github.com/Shougo/dein.vim')
+" GLSL highlighting, it's so nice to have.
+Plug 'tikhomirov/vim-glsl'
 
-    " Gutentags.
-    " call dein#add('ludovicchabant/vim-gutentags')
+" Better highlighting
+Plug 'https://github.com/KeitaNakamura/highlighter.nvim'
 
-    " GLSL highlighting, it's so nice to have.
-    call dein#add('tikhomirov/vim-glsl')
+" Git gutter
+Plug 'airblade/vim-gitgutter'
 
-    " Better highlighting
-    call dein#add('https://github.com/KeitaNakamura/highlighter.nvim')
+" Fugitiv
+" Plug 'https://github.com/tpope/vim-fugitive.git'
 
-    " Git gutter
-    call dein#add('airblade/vim-gitgutter')
+" Goyo
+Plug 'https://github.com/junegunn/goyo.vim'
 
-    " Fugitiv
-    " call dein#add('https://github.com/tpope/vim-fugitive.git')
+" Rust-lang
+Plug 'rust-lang/rust.vim'
 
-    " Goyo
-    call dein#add('https://github.com/junegunn/goyo.vim')
+Plug 'rhysd/vim-clang-format'
 
-    " Rust-lang
-    call dein#add('rust-lang/rust.vim')
+" Hands down best plugin I have
+Plug 'junegunn/fzf.vim'
 
-    call dein#add('rhysd/vim-clang-format')
+" Better dimming
+Plug 'jeffkreeftmeijer/vim-dim'
 
-    " Hands down best plugin I have
-    call dein#add('junegunn/fzf.vim')
+Plug 'xolox/vim-misc'
 
-    " Better dimming
-    call dein#add('jeffkreeftmeijer/vim-dim')
-
-    " Required:
-    call dein#end()
-    call dein#save_state()
-endif
+call plug#end()
 
 colorscheme default
 
@@ -117,10 +107,6 @@ function! ToggleSpell()
         setlocal spell
     endif
 endfunction
-
-if dein#check_install()
-    call dein#install()
-endif
 
 " File rename
 function! MoveFile(newspec)
