@@ -33,8 +33,8 @@ source '/usr/share/fzf/completion.zsh'
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.config/zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 setopt autocd extendedglob
 unsetopt appendhistory beep
 bindkey -e
@@ -49,6 +49,7 @@ bindkey "^w" forward-word
 alias reboot="sudo systemctl reboot"
 alias poweroff="sudo systemctl poweroff"
 alias hibernate="sudo systemctl suspend"
+alias scons="scons -j8"
 
 export EDITOR="/usr/bin/nvim"
 export BROWSER="/usr/bin/firefox"
@@ -145,4 +146,11 @@ GPG_TTY=$(tty)
 export GPG_TTY
 export XDG_DATA_HOME=$HOME/.local/share
 
-export PATH=/home/ed/.nimble/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/ed/Apps:/home/ed/.local/bin:/home/ed/Apps:/home/ed/.local/bin:/home/ed/.cargo/bin
+export PATH=$HOME/.nimble/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/Apps:$HOME/.local/bin:$HOME/Apps:$HOME/.local/bin:$HOME/.cargo/bin
+
+[[ \$- == *i* ]] && source "/usr/share/fzf/completion.zsh"
+source "/usr/share/fzf/key-bindings.zsh"
+
+if ! [ -x "$(type wikipedia.py)" ]; then
+    wikipedia.py
+fi
