@@ -49,7 +49,7 @@ bindkey "^w" forward-word
 alias reboot="sudo systemctl reboot"
 alias poweroff="sudo systemctl poweroff"
 alias hibernate="sudo systemctl suspend"
-alias scons="scons -j8"
+alias scons="scons -j8 --compilation-db --tags"
 
 export EDITOR="/usr/bin/nvim"
 export BROWSER="/usr/bin/firefox"
@@ -91,6 +91,8 @@ alias plexstart="systemctl start plexmediaserver.service && firefox http://local
 alias plexstop="systemctl stop plexmediaserver.service"
 alias pull_mail='mbsync -a && notmuch new && notmuch tag +liu to:edvth289@student.liu.se && notmuch tag +lithekod to:kassor@lithekod.se && notmuch tag +personal to:edvard.thornros@gmail.com && unread'
 alias countdown="countdown.py"
+alias NIRA="ssh edtho@192.168.0.150 -p 2232"
+alias keys="setxkbmap se -option caps:escape"
 
 alias g="git"
 alias gs="git status"
@@ -150,7 +152,3 @@ export PATH=$HOME/.nimble/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/j
 
 [[ \$- == *i* ]] && source "/usr/share/fzf/completion.zsh"
 source "/usr/share/fzf/key-bindings.zsh"
-
-if ! [ -x "$(type wikipedia.py)" ]; then
-    wikipedia.py
-fi

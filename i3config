@@ -22,7 +22,7 @@ font pango: Fira Mono 9.5
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+e kill
@@ -63,6 +63,8 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+i layout stacking
 bindsym $mod+o layout default
 #bindsym $mod+s layout stacking
+
+bindsym $mod+F10 exec flameshot gui
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -106,7 +108,7 @@ set $ws0 "0"
 bindsym $mod+less  move container to output right
 
 bindsym $mod+Shift+BackSpace move scratchpad
-bindsym $mod+BackSpace [class="st"] scratchpad show
+bindsym $mod+BackSpace [class="Alacritty"] scratchpad show
 bindsym $mod+d scratchpad show
 bindsym $mod+w workspace back_and_forth
 
@@ -217,4 +219,4 @@ bindsym $mod+p exec rofi -combi-modi window#drun -show combi -font "monaco 11"
 #}
 
 exec --no-startup-id ~/.config/polybar/launch.sh
-exec --no-startup-id xbanish -i mod4
+exec --no-strtup-id xbanish -i mod4

@@ -22,3 +22,6 @@
 
 [rerere]
     enable = true
+
+[alias]
+    hide = update-index --assume-unchanged

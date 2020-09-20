@@ -4,20 +4,14 @@ endif
 
 call plug#begin('~/.config/nvim/plugged')
 
-" Gutentags.
-" Plug 'ludovicchabant/vim-gutentags')
-
 " GLSL highlighting, it's so nice to have.
 Plug 'tikhomirov/vim-glsl'
 
 " Better highlighting
 Plug 'https://github.com/KeitaNakamura/highlighter.nvim'
 
-" Git gutter
-Plug 'airblade/vim-gitgutter'
-
 " Fugitiv
-" Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/tpope/vim-fugitive.git'
 
 " Goyo
 Plug 'https://github.com/junegunn/goyo.vim'
@@ -26,6 +20,9 @@ Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'rust-lang/rust.vim'
 
 Plug 'rhysd/vim-clang-format'
+
+" Language server
+Plug 'dense-analysis/ale'
 
 " Hands down best plugin I have
 Plug 'junegunn/fzf.vim'
@@ -37,40 +34,13 @@ Plug 'xolox/vim-misc'
 
 call plug#end()
 
-colorscheme default
+colorscheme dim
 
-" nnoremap cf :<C-u>ClangFormat<CR>
-let g:clang_format#style_options = {
-            \ "BraceWrapping" : {
-            \   "AfterClass" : "true",
-            \   "AfterControlStatement" : "true",
-            \   "AfterEnum" : "true",
-            \   "AfterFunction" : "true",
-            \   "AfterNamespace" : "true",
-            \   "AfterObjCDeclaration" : "false",
-            \   "AfterStruct" : "true",
-            \   "AfterUnion" : "true",
-            \   "AfterExternBlock" : "true",
-            \   "BeforeCatch" : "true",
-            \   "BeforeElse" : "true"
-            \ },
-            \ "AllowShortIfStatementsOnASingleLine": "true",
-            \ "AllowShortLoopsOnASingleLine": "true",
-            \ "SortIncludes": "false",
-            \ "SpaceAfterCStyleCast": "true",
-            \ "TabWidth": "4"}
+let g:clang_format#style_options = 'file'
+autocmd FileType c,cpp ClangFormatAutoEnable
 
-
-" let g:airline_powerline_fonts = 0
-" let g:airline_skip_empty_sections = 1
-" let g:airline_detect_spelllang = 0
-" let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-" let g:airline_theme='murmur'
-
-"let g:python_support_python2_require = 0
-"let g:gutentags_ctags_exclude = ['res/**/*', 'inc/**/*', 'bin/**/*', 'tmp/**/*']
-"let g:gutentags_ctags_extra_args = ['-R', '--exclude=res', '--exclude=bin', '--exclude=inc', '--exclude=.git']
-"let g:gutentags_cache_dir = "~/.config/nvim/tag_files"
+let g:ale_sign_error = '>'
+let g:ale_sign_warning = '-'
 
 " Leave this traling whitespace alone.
 nnoremap <F8> <ESC>:!ctags -R 
@@ -81,11 +51,15 @@ nnoremap <F7> <ESC>:vert new<CR><C-o>:term pycodestyle %<CR>a<C-d>
 
 let g:fzf_buffers_jump = 1
 
+" Gives you a local vimrc
+set exrc
+set secure
+
 set path=src/
 set path+=src/**/*
-nnoremap <C-g> <ESC>:vimgrep // src/**/*<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <C-g> <ESC>:grep  src/**/*<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 nnoremap <C-f> <ESC>:GFiles src<CR>
-nnoremap <C-f> <ESC>:Files<CR>
+" nnoremap <C-f> <ESC>:Files<CR>
 nnoremap <C-b> <ESC>:Buffers<CR>
 nnoremap <C-n> <ESC>:Tags<CR>
 nnoremap <C-q> <ESC>:Lines<CR>
@@ -93,10 +67,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-"nnoremap <C-m> <ESC>:Marks<CR>
+nnoremap <C-'> <ESC>:Marks<CR>
 nnoremap <C-w><C-n> <ESC>:vert new<CR>
 nnoremap <C-s> :update<CR>
-nnoremap <Enter> :call ToggleSpell()<CR>
 inoremap <C-s> <ESC>:update<CR>i
 tnoremap <C-C> <C-\><C-n>
 
@@ -122,7 +95,6 @@ endfunction
 command! -nargs=1 -complete=file -bar MoveFile call MoveFile('<args>')
 
 
-
 " Required:
 filetype plugin indent on
 syntax enable
@@ -132,6 +104,11 @@ set scrolloff=5
 
 set inccommand=split
 
+" Or map each action separately
+" nmap <silent> K <Plug>(lcn-hover)
+nmap <silent> gd <Plug>(lcn-definition)
+nmap <silent> <F9> <Plug>(lcn-menu)
+nmap <silent> <F10> <Plug>(lcn-rename)
 
 " Theme tweaks
 autocmd FileType rust,html,c,cpp,java,python autocmd BufWritePre <buffer> %s/\s\+$//e
