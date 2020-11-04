@@ -5,7 +5,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango: Fira Mono 9.5
+font pango: Fira Code 9.5
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -44,6 +44,8 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+bindsym $mod+i nop #toggle_bar_detail
+
 # alternatively, you can use the cursor keys:
 #bindsym $mod+Shift+Left move left
 #bindsym $mod+Shift+Down move down
@@ -60,8 +62,8 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+i layout stacking
-bindsym $mod+o layout default
+bindsym $mod+m layout stacking
+bindsym $mod+n layout default
 #bindsym $mod+s layout stacking
 
 bindsym $mod+F10 exec flameshot gui
@@ -84,10 +86,10 @@ bindsym XF86AudioMute exec pamixer -t
 bindsym $mod+XF86AudioMute exec pamixer -t
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
-bindsym $mod+XF86MonBrightnessUp exec xbacklight -inc 10 
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 
-bindsym $mod+XF86MonBrightnessDown exec xbacklight -dec 10 
+bindsym XF86MonBrightnessUp exec sudo light -A 10 
+bindsym $mod+XF86MonBrightnessUp exec sudo light -A 10 
+bindsym XF86MonBrightnessDown exec sudo light -U 10 
+bindsym $mod+XF86MonBrightnessDown exec sudo light -U 10 
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -103,7 +105,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws0 "0"
+set $ws0 "10"
 
 bindsym $mod+less  move container to output right
 
@@ -143,7 +145,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exit
 # Lock
-bindsym $mod+Shift+x exec i3lock -u -i ~/.config/wallpaper.jpg
+bindsym $mod+Shift+x exec i3lock -u -i ~/.config/wallz/wall.png
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -196,27 +198,28 @@ client.background		$black
 
 # start dmenu (a program launcher)
 #bindsym $mod+p exec i3-dmenu-desktop --dmenu='dmenu -l 10 -i -fn Monaco-12 -nb "#1a1b20" -nf "#becfe3" -sb "#2c698e" -sf "#1a1b20"'
-bindsym $mod+p exec rofi -combi-modi window#drun -show combi -font "monaco 11"
+bindsym $mod+p exec rofi -combi-modi window#drun#ssh -show combi -font "FiraCode 13" -sort -sorting-method fzf
 
 ## Start i3bar to display a workspace bar (plus the system information i3status
 ## finds out, if available)
-#bar {
-#	colors {
-#		background $black
-#			statusline $white
-#			separator $white
-#
-#			# 		   BORDER  FILL    TEXT
-#			focused_workspace  $blue  $blue  $black
-#			active_workspace   $grey   $blue  $black
-#			inactive_workspace $black  $black  $grey
-#			urgent_workspace   $yellow $yellow $black
-#			binding_mode       $blue  $blue  $black
-#	}
-#        status_command i3blocks -c ~/.config/i3/bar
-#	position top
-#	separator_symbol " "
-#}
-
+# bar {
+# 	colors {
+# 		background $black
+# 			statusline $white
+# 			separator $white
+# 
+# 			# 		   BORDER  FILL    TEXT
+# 			focused_workspace  $blue  $blue  $black
+# 			active_workspace   $grey   $blue  $black
+# 			inactive_workspace $black  $black  $grey
+# 			urgent_workspace   $yellow $yellow $black
+# 			binding_mode       $blue  $blue  $black
+# 	}
+#         status_command i3staus -c ~/.config/i3/bar
+# 	position top
+# 	separator_symbol " "
+# }
 exec --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id feh --bg-center ~/.config/wallz/wall.png
+exec --no-startup-id picom
 exec --no-strtup-id xbanish -i mod4

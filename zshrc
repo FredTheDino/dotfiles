@@ -49,7 +49,10 @@ bindkey "^w" forward-word
 alias reboot="sudo systemctl reboot"
 alias poweroff="sudo systemctl poweroff"
 alias hibernate="sudo systemctl suspend"
-alias scons="scons -j8 --compilation-db --tags"
+alias scons="scons -j12 --compilation-db --tags"
+alias lighttheme="themer light &> /dev/null"
+alias darktheme="themer dark &> /dev/null"
+alias autotheme="themer auto &> /dev/null"
 
 export EDITOR="/usr/bin/nvim"
 export BROWSER="/usr/bin/firefox"
@@ -93,6 +96,7 @@ alias pull_mail='mbsync -a && notmuch new && notmuch tag +liu to:edvth289@studen
 alias countdown="countdown.py"
 alias NIRA="ssh edtho@192.168.0.150 -p 2232"
 alias keys="setxkbmap se -option caps:escape"
+alias alert="echo -e '\a'"
 
 alias g="git"
 alias gs="git status"
@@ -109,9 +113,9 @@ show_git_status() {
 
         $(git diff --no-ext-diff --quiet)
         if [[ $? -eq 0 ]]; then
-            GIT="%f[%B%F{green}$GIT_BRANCH%f%b]"
+            GIT="%f%B%F{green}$GIT_BRANCH%f%b"
         else
-            GIT="%f[%B%F{red}*$GIT_BRANCH*%f%b]"
+            GIT="%f%B%F{red}*$GIT_BRANCH*%f%b"
         fi
     fi
     echo -n -e "$GIT"
@@ -119,7 +123,7 @@ show_git_status() {
 
 show_ssh() {
     if [[ -n $SSH_CONNECTION ]]; then
-        echo -n -e "%f%B%F{red}##%f%b"
+        echo -n -e "%f%B%F{red}>%f%b"
     fi
     echo -n -e ""
 }
@@ -129,7 +133,7 @@ bat() {
 }
 
 setopt PROMPT_SUBST
-PROMPT='$(show_ssh)$(show_git_status)%f[%B%F{blue}$(date +"%H:%M")%f%b] %B%F{blue}%2~%f%b%F{green} %B$%b %f'
+PROMPT='$(show_ssh)>:$(show_git_status):<%f%B%F{blue}%2~%f%b%F%f> '
 RPROMPT='%F{blue}$?'
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
@@ -152,3 +156,4 @@ export PATH=$HOME/.nimble/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/j
 
 [[ \$- == *i* ]] && source "/usr/share/fzf/completion.zsh"
 source "/usr/share/fzf/key-bindings.zsh"
+keys

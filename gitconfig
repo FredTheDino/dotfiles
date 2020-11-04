@@ -1,13 +1,10 @@
 [user]
 	email = edvard.thornros@gmail.com
 	name = Edvard Thörnros
-	signingkey = 25339906C233EAEDC4B001FCB10C9CAD881605D0
 [log]
 	abbrevCommit = true
 	oneline = true
 	graph = true
-[core]
-    hooksPath = ~/.config/git/hooks
 [add]
 	verbose = true
 [pull]
@@ -18,10 +15,11 @@
 [commit]
     verbose = true
 [status]
-	short = true
-
 [rerere]
     enable = true
 
 [alias]
     hide = update-index --assume-unchanged
+    s = status
+    c = commit
+    a = add
