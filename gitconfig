@@ -1,27 +1,30 @@
 [user]
-	email = edvard.thornros@gmail.com
-	name = Edvard Thörnros
-	signingkey = 25339906C233EAEDC4B001FCB10C9CAD881605D0
+  email = edvard.thornros@gmail.com
+  name = Edvard Thörnros
+  signingkey = 25339906C233EAEDC4B001FCB10C9CAD881605D0
 [log]
-	abbrevCommit = true
-	oneline = true
-	graph = true
+  abbrevCommit = true
+  oneline = true
+  graph = true
 [core]
-    hooksPath = ~/.config/git/hooks
+  hooksPath = ~/.config/git/hooks
 [add]
-	verbose = true
+  verbose = true
 [pull]
-    rebase = true
+  rebase = true
 [push]
-    default = tracking
-    followTags = true
+  default = tracking
+  followTags = true
 [commit]
-    verbose = true
+  verbose = true
 [status]
-	short = true
+  # short = true
 
 [rerere]
-    enable = true
+  enable = true
 
 [alias]
-    hide = update-index --assume-unchanged
+  hide = update-index --assume-unchanged
+  lg = log --graph --branches --tags --pretty=format:'%C(auto)%h%d %aN (%G?) %ar%n%<(50,trunc)%s%Creset%n'
+[init]
+  defaultBranch = main

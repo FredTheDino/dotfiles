@@ -52,11 +52,12 @@ alias hibernate="sudo systemctl suspend"
 alias scons="scons -j8 --compilation-db --tags"
 
 export EDITOR="/usr/bin/nvim"
-export BROWSER="/usr/bin/firefox"
+export BROWSER="firefox"
 export TERMINAL="st"
 export DOTS="/home/ed/.config/dotfiles"
 
 export PATH=$PATH:~/Apps:~/.local/bin:
+export PATH=/home/ed/.nimble/bin:$PATH
 
 man() {
     LESS_TERMCAP_md=$'\e[01;33m' \
@@ -68,6 +69,9 @@ man() {
     command man "$@"
 }
 
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+alias bat='bat'
+alias cat='bat --paging=never'
 export FZF_DEFAULT_OPTS='--height 40% --color=16'
 echo $HOME > /tmp/path
 alias install="sudo pacman -S"
@@ -93,6 +97,8 @@ alias pull_mail='mbsync -a && notmuch new && notmuch tag +liu to:edvth289@studen
 alias countdown="countdown.py"
 alias NIRA="ssh edtho@192.168.0.150 -p 2232"
 alias keys="setxkbmap se -option caps:escape"
+alias liutunnle="ssh -L 3307:mariadb.edu.liu.se:3306 edvth289@ssh.edu.liu.se"
+alias dbpass="echo 'm2if6w7x'"
 
 alias g="git"
 alias gs="git status"
@@ -109,12 +115,24 @@ show_git_status() {
 
         $(git diff --no-ext-diff --quiet)
         if [[ $? -eq 0 ]]; then
-            GIT="%f[%B%F{green}$GIT_BRANCH%f%b]"
+            GIT="%f[%B$GIT_BRANCH%b]"
         else
             GIT="%f[%B%F{red}*$GIT_BRANCH*%f%b]"
         fi
     fi
     echo -n -e "$GIT"
+}
+
+show_artist() {
+    $(playerctl status &> /dev/null)
+    EXISTS=$?
+    if [[ $EXISTS -eq 0 ]]; then
+        ARTIST=$(playerctl metadata \
+                | grep ":artist" \
+                | cut -c 25- \
+                | stripncut.py 2)
+        echo -n -e "[%B%F{bold}$ARTIST%f%b]"
+    fi
 }
 
 show_ssh() {
@@ -124,13 +142,19 @@ show_ssh() {
     echo -n -e ""
 }
 
-bat() {
-    cat /sys/class/power_supply/BAT0/capacity
+prompt() {
+    EXIT=$?
+    if [[ $EXIT -ne 0 ]]; then
+        EXIT="%B%F{red}-$EXIT-%f%b"
+    else
+        EXIT=""
+    fi
+    
+    echo -n -e "$(show_ssh)$(show_git_status)%f %B%F{green}%2~%f%b $EXIT%B%F{green}::%b%f "
 }
 
 setopt PROMPT_SUBST
-PROMPT='$(show_ssh)$(show_git_status)%f[%B%F{blue}$(date +"%H:%M")%f%b] %B%F{blue}%2~%f%b%F{green} %B$%b %f'
-RPROMPT='%F{blue}$?'
+PROMPT='$(prompt)'
 
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     exec startx 1>> .tempx
@@ -147,8 +171,6 @@ fi
 GPG_TTY=$(tty)
 export GPG_TTY
 export XDG_DATA_HOME=$HOME/.local/share
-
-export PATH=$HOME/.nimble/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/Apps:$HOME/.local/bin:$HOME/Apps:$HOME/.local/bin:$HOME/.cargo/bin
 
 [[ \$- == *i* ]] && source "/usr/share/fzf/completion.zsh"
 source "/usr/share/fzf/key-bindings.zsh"
