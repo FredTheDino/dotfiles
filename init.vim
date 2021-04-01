@@ -22,7 +22,7 @@ Plug 'rust-lang/rust.vim'
 
 " Plug 'leafo/moonscript-vim'
 
-" TiHdY
+" Sylt!!!
 Plug 'FredTheDino/sylt.vim'
 
 " Language server
