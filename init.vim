@@ -14,14 +14,11 @@ Plug 'https://github.com/tpope/vim-fugitive.git'
 
 " Goyo
 " Plug 'https://github.com/junegunn/goyo.vim'
-
 " Rust-lang
 Plug 'rust-lang/rust.vim'
 
 " Plug 'rhysd/vim-clang-format'
-
 " Plug 'leafo/moonscript-vim'
-
 " Sylt!!!
 Plug 'FredTheDino/sylt.vim'
 
@@ -29,6 +26,7 @@ Plug 'FredTheDino/sylt.vim'
 "  - The linter didn't use the flags I provided, and
 "       was slow to reload, don't really want to go back.
 Plug 'dense-analysis/ale'
+
 let g:ale_disable_lsp = 1
 let g:ale_sign_column_always = 1
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -40,10 +38,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'jeffkreeftmeijer/vim-dim'
 
 Plug 'rhysd/rust-doc.vim'
-
-" Plug 'lervag/vimtex'
-
-Plug 'thaerkh/vim-indentguides'
 
 call plug#end()
 

@@ -52,6 +52,8 @@ alias hibernate="sudo systemctl suspend"
 alias scons="scons -j8 --compilation-db --tags"
 
 export EDITOR="/usr/bin/nvim"
+export VISUAL="/usr/bin/nvim"
+export SUDO_EDITOR="/usr/bin/nvim"
 export BROWSER="firefox"
 export TERMINAL="st"
 export DOTS="/home/ed/.config/dotfiles"

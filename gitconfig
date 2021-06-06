@@ -7,7 +7,7 @@
   oneline = true
   graph = true
 [core]
-  hooksPath = ~/.config/git/hooks
+  pager = delta
 [add]
   verbose = true
 [pull]
@@ -26,5 +26,16 @@
 [alias]
   hide = update-index --assume-unchanged
   lg = log --graph --branches --tags --pretty=format:'%C(auto)%h%d %aN (%G?) %ar%n%<(50,trunc)%s%Creset%n'
+  undo = reset HEAD~
 [init]
   defaultBranch = main
+
+[delta]
+  plus-style = "bold syntax #051005"
+  minus-style = "bold syntax #200505"
+  syntax-theme = zenburn
+  navigate = true
+  line-numbers = true
+
+[interactive]
+  diffFilter = delta --color-only
