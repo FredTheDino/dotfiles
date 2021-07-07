@@ -21,15 +21,6 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-source '/usr/share/fzf/key-bindings.zsh'
-source '/usr/share/fzf/completion.zsh'
-
-# autoload -Uz compinit
-# zstyle ':completion:*' completer _complete _list _expand _ignored _match _correct _prefix
-# zstyle ':completion:*' max-errors 3
-# zstyle :compinstall filename '/home/ed/.zshrc'
-# compinit
-
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.config/zsh_history
@@ -55,9 +46,10 @@ export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
 export SUDO_EDITOR="/usr/bin/nvim"
 export BROWSER="firefox"
-export TERMINAL="st"
+export TERMINAL="alacritty"
 export DOTS="/home/ed/.config/dotfiles"
 
+fpath=(/home/ed/.config/dotfiles/zsh-completions/src $fpath)
 export PATH=$PATH:~/Apps:~/.local/bin:
 export PATH=/home/ed/.nimble/bin:$PATH
 
@@ -73,18 +65,12 @@ man() {
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 alias bat='bat'
-alias cat='bat --paging=never'
+alias cat='bat --paging=never --style=numbers,header'
 export FZF_DEFAULT_OPTS='--height 40% --color=16'
-echo $HOME > /tmp/path
-alias install="sudo pacman -S"
-alias uninstall="sudo pacman -Rns"
-alias update="sudo pacman -Syyu"
 alias :q="exit"
 alias vi='nvim'
 alias vim='nvim'
 alias edit='nvim $(fzf)'
-alias goto='cd "$(exa -d */**/ | fzf)"'
-alias nav='lf -last-dir-path /tmp/lf-path && cd $(cat /tmp/lf-path)'
 alias view='zathura'
 alias ls='exa'
 alias xclip='xclip -selection clipboard'
@@ -93,14 +79,10 @@ export HERE='Linköping'
 alias weather='curl http://v2.wttr.in/$HERE'
 alias ocd='openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg'
 alias unread='echo "$(notmuch search tag:unread | wc -l) unread mails"'
-alias plexstart="systemctl start plexmediaserver.service && firefox http://localhost:32400/web/"
-alias plexstop="systemctl stop plexmediaserver.service"
-alias pull_mail='mbsync -a && notmuch new && notmuch tag +liu to:edvth289@student.liu.se && notmuch tag +lithekod to:kassor@lithekod.se && notmuch tag +personal to:edvard.thornros@gmail.com && unread'
 alias countdown="countdown.py"
 alias NIRA="ssh edtho@192.168.0.150 -p 2232"
 alias keys="setxkbmap se -option caps:escape"
 alias liutunnle="ssh -L 3307:mariadb.edu.liu.se:3306 edvth289@ssh.edu.liu.se"
-alias dbpass="echo 'm2if6w7x'"
 
 alias g="git"
 alias gs="git status"
@@ -123,18 +105,6 @@ show_git_status() {
         fi
     fi
     echo -n -e "$GIT"
-}
-
-show_artist() {
-    $(playerctl status &> /dev/null)
-    EXISTS=$?
-    if [[ $EXISTS -eq 0 ]]; then
-        ARTIST=$(playerctl metadata \
-                | grep ":artist" \
-                | cut -c 25- \
-                | stripncut.py 2)
-        echo -n -e "[%B%F{bold}$ARTIST%f%b]"
-    fi
 }
 
 show_ssh() {

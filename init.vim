@@ -12,6 +12,8 @@ Plug 'tikhomirov/vim-glsl'
 " Fugitiv
 Plug 'https://github.com/tpope/vim-fugitive.git'
 
+Plug 'https://github.com/skanehira/vsession.git'
+
 " Goyo
 " Plug 'https://github.com/junegunn/goyo.vim'
 " Rust-lang
@@ -22,14 +24,18 @@ Plug 'rust-lang/rust.vim'
 " Sylt!!!
 Plug 'FredTheDino/sylt.vim'
 
-" Language server
-"  - The linter didn't use the flags I provided, and
-"       was slow to reload, don't really want to go back.
-Plug 'dense-analysis/ale'
+" " Language server
+" "  - The linter didn't use the flags I provided, and
+" "       was slow to reload, don't really want to go back.
+" Plug 'dense-analysis/ale'
+" 
+" let g:ale_disable_lsp = 1
+" let g:ale_sign_column_always = 1
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
 
-let g:ale_disable_lsp = 1
-let g:ale_sign_column_always = 1
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" To minimize distractions
+Plug 'junegunn/goyo.vim'
 
 " Hands down best plugin I have
 Plug 'junegunn/fzf.vim'
@@ -39,7 +45,18 @@ Plug 'jeffkreeftmeijer/vim-dim'
 
 Plug 'rhysd/rust-doc.vim'
 
+Plug 'elixir-editors/vim-elixir'
+
 call plug#end()
+
+lua << EOF
+require'lspconfig'.rust_analyzer.setup{}
+require'lspconfig'.clangd.setup{}
+require'lspconfig'.jedi_language_server.setup{}
+-- require'lspconfig'.mypy.setup{}
+EOF
+
+set omnifunc=v:lua.vim.lsp.omnifunc
 
 colorscheme dim
 
@@ -67,8 +84,6 @@ set path=src/
 set path+=src/**/*
 nnoremap <C-g> <ESC>:grep  src/**/*<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 nnoremap <C-f> <ESC>:GFiles src<CR>
-nnoremap gd <ESC>:ALEGoToDefinition<CR>
-nnoremap gD <ESC>:ALEFindReferences<CR>
 nnoremap <C-b> <ESC>:Buffers<CR>
 nnoremap <C-n> <ESC>:Tags<CR>
 nnoremap <C-q> <ESC>:Lines<CR>
@@ -82,12 +97,6 @@ nnoremap <C-w>m <ESC><C-w>_<C-w>|
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <ESC>:update<CR>i
 tnoremap <C-C> <C-\><C-n>
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
