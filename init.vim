@@ -47,12 +47,60 @@ Plug 'rhysd/rust-doc.vim'
 
 Plug 'elixir-editors/vim-elixir'
 
+Plug 'purescript-contrib/purescript-vim'
+
 call plug#end()
 
 lua << EOF
+require'lspconfig'.elixirls.setup{
+    cmd = { "/home/ed/Apps/elixir-ls/language_server.sh" };
+}
+require'lspconfig'.purescriptls.setup{}
+
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.clangd.setup{}
 require'lspconfig'.jedi_language_server.setup{}
+require'lspconfig'.elmls.setup{}
+require'lspconfig'.texlab.setup{}
+
+
+-- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
+local sumneko_root_path = "/home/ed/Code/lua-language-server/"
+local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require'lspconfig'.sumneko_lua.setup {
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = runtime_path,
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim', 'love'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+
+
+-- require'lspconfig'.pyright.setup{}
+-- require'lspconfig'.pyls.setup{}
 -- require'lspconfig'.mypy.setup{}
 EOF
 
@@ -69,7 +117,7 @@ let g:clang_format#style_options = 'file'
 
 " Leave this traling whitespace alone.
 nnoremap <F8> <ESC>:!ctags -R 
-nnoremap <F3> <ESC>:vert new<CR><C-o>:term python -i %<CR>a
+nnoremap gp <ESC>:vert new<CR><C-o>:term python -i %<CR>a
 nnoremap <F5> <ESC>:make<CR>
 nnoremap <F6> <ESC>:make run<CR>
 nnoremap <F7> <ESC>:vert new<CR><C-o>:term pycodestyle %<CR>a<C-d>
@@ -97,6 +145,8 @@ nnoremap <C-w>m <ESC><C-w>_<C-w>|
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <ESC>:update<CR>i
 tnoremap <C-C> <C-\><C-n>
+nnoremap <SPACE><SPACE> :lua vim.lsp.buf.hover()<CR>
+nnoremap <SPACE>a :lua vim.lsp.buf.code_action()<CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -128,7 +178,7 @@ filetype plugin indent on
 syntax enable
 set hidden
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-set scrolloff=5
+set scrolloff=7
 
 set inccommand=split
 
@@ -148,7 +198,7 @@ augroup colorschemegroup
 augroup END
 
 " Theme tweaks
-autocmd FileType rust,html,c,cpp,java,python autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType lua,rust,html,c,cpp,java,python,sy autocmd BufWritePre <buffer> %s/\s\+$//e
 hi LineNr ctermbg=Black ctermfg=7
 
 function ShowFileFormatFlag(var)
@@ -223,6 +273,8 @@ set statusline+=%{ShowBreakStatus()}
 
 " I always want my spell checker to be on, I am a notoriously bad speller... 
 set nospell spelllang=en_us
+set wrap
+set linebreak
 
 " Git gutter
 set updatetime=150
