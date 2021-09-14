@@ -42,6 +42,10 @@ alias poweroff="sudo systemctl poweroff"
 alias hibernate="sudo systemctl suspend"
 alias scons="scons -j8 --compilation-db --tags"
 
+alias lesslie-mount="sudo cryptsetup open /dev/sdb2 lesslie || sudo mount /dev/mapper/lesslie /home/lesslie"
+alias lesslie-umount="sudo cryptsetup close lesslie || sudo umount /home/lesslie"
+alias lesslie-build="ERL_COMPILER_OPTIONS=\"[no_bool_opt,no_stack_trimming]\" iex -S mix phx.server"
+
 export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
 export SUDO_EDITOR="/usr/bin/nvim"
@@ -146,3 +150,5 @@ export XDG_DATA_HOME=$HOME/.local/share
 
 [[ \$- == *i* ]] && source "/usr/share/fzf/completion.zsh"
 source "/usr/share/fzf/key-bindings.zsh"
+
+alias luamake=/home/ed/Code/lua-language-server/3rd/luamake/luamake
