@@ -4,6 +4,9 @@
 autoload -Uz compinit
 compinit
 
+setopt share_history
+setopt hist_ignore_dups
+
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -37,10 +40,19 @@ bindkey -e
 bindkey "^b" backward-word
 bindkey "^w" forward-word
 
+watson() {
+    pushd > /dev/null
+    cd /home/ed/Apps; python3 -m watson "$@"
+    popd > /dev/null
+}
+
+alias jeeves="JEEVES_TASKFILE_PATH=/home/ed/.tasks.json jeeves"
 alias reboot="sudo systemctl reboot"
 alias poweroff="sudo systemctl poweroff"
 alias hibernate="sudo systemctl suspend"
 alias scons="scons -j8 --compilation-db --tags"
+alias gitlab-clone='$(xclip -o | sed -Ee "s|https://gitlab.liu.se/([a-z]{3,5}[0-9]{3})/(.*)|git clone git@gitlab.liu.se:\1/\2 \1|")'
+alias @="alacritty &; disown"
 
 alias lesslie-mount="sudo cryptsetup open /dev/sdb2 lesslie || sudo mount /dev/mapper/lesslie /home/lesslie"
 alias lesslie-umount="sudo cryptsetup close lesslie || sudo umount /home/lesslie"
@@ -70,7 +82,9 @@ man() {
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 alias bat='bat'
 alias cat='bat --paging=never --style=numbers,header'
-export FZF_DEFAULT_OPTS='--height 40% --color=16'
+export FZF_DEFAULT_OPTS='--height 40% --color=16 --layout=reverse'
+# export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 alias :q="exit"
 alias vi='nvim'
 alias vim='nvim'

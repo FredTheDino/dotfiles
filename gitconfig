@@ -6,8 +6,6 @@
   abbrevCommit = true
   oneline = true
   graph = true
-[core]
-  pager = delta
 [add]
   verbose = true
 [pull]
@@ -18,7 +16,7 @@
 [commit]
   verbose = true
 [status]
-  # short = true
+  short = true
 
 [rerere]
   enable = true
@@ -39,3 +37,9 @@
 
 [interactive]
   diffFilter = delta --color-only
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
