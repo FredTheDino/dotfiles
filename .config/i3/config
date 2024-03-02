@@ -291,44 +291,12 @@ exec --no-startup-id pamac-tray
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
-# Color palette used for the terminal ( ~/.Xresources file )
-# Colors are gathered based on the documentation:
-# https://i3wm.org/docs/userguide.html#xresources
-# Change the variable name at the place you want to match the color
-# of your terminal like this:
-# [example]
-# If you want your bar to have the same background color as your 
-# terminal background change the line 362 from:
-# background #14191D
-# to:
-# background $term_background
-# Same logic applied to everything else.
-set_from_resource $term_background background
-set_from_resource $term_foreground foreground
-set_from_resource $term_color0     color0
-set_from_resource $term_color1     color1
-set_from_resource $term_color2     color2
-set_from_resource $term_color3     color3
-set_from_resource $term_color4     color4
-set_from_resource $term_color5     color5
-set_from_resource $term_color6     color6
-set_from_resource $term_color7     color7
-set_from_resource $term_color8     color8
-set_from_resource $term_color9     color9
-set_from_resource $term_color10    color10
-set_from_resource $term_color11    color11
-set_from_resource $term_color12    color12
-set_from_resource $term_color13    color13
-set_from_resource $term_color14    color14
-set_from_resource $term_color15    color15
+set $background   #232A2E
+set $foreground   #D3C6AA
 
-set $background   #181825AA
-set $foreground   #cdd6f4
-
-set $subtle #1e1e2eAA
-set $green  #a6e3a1
-set $greenl #94e2d5  
-set $red    #f38ba8   
+set $subtle #56635f
+set $green  #DBBC7F
+set $red    #514045   
 
 set $padding 10px
 set $padding_right_primary 10px

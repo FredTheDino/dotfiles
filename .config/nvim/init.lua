@@ -22,10 +22,13 @@ function plugins()
     Plug("junegunn/goyo.vim")
 
     -- Making it look good
-    Plug("jeffkreeftmeijer/vim-dim")
-    Plug("sainnhe/everforest")
-    Plug("EdenEast/nightfox.nvim")
-    Plug("catppuccin/nvim", { as="catppuccin" })
+    -- Plug("jeffkreeftmeijer/vim-dim")
+    -- Plug("EdenEast/nightfox.nvim")
+    -- Plug("catppuccin/nvim", { as="catppuccin" })
+    -- Plug("ellisonleao/gruvbox.nvim")
+    -- Plug("shaunsingh/seoul256.nvim"), no highlight in search
+    -- Plug("bluz71/vim-moonfly-colors", { ["as"] = "moonfly" })
+    Plug("neanias/everforest-nvim", { ["as"] = "everforest" })
     Plug("nvim-lualine/lualine.nvim")
 
     -- Core workflow
@@ -38,16 +41,16 @@ function plugins()
     -- Treesitter
     -- Plug("nvim-treesitter/nvim-treesitter")
     -- Plug("nvim-treesitter/highlight.lua")
-    -- -- Plug("nvim-treesitter/nvim-treesitter-refactor")
+    -- Plug("nvim-treesitter/nvim-treesitter-refactor")
     -- Plug('nvim-treesitter/playground')
 
     -- Under review
     Plug("rafcamlet/nvim-luapad")
     -- Plug("lukas-reineke/indent-blankline.nvim")
     -- Plug("stevearc/aerial.nvim")
-    Plug("mvllow/modes.nvim")
+    -- Plug("mvllow/modes.nvim")
 
-    Plug("FredTheDino/ma-pur-ma.nvim")
+    -- Plug("FredTheDino/ma-pur-ma.nvim")
 
     -- On thin ice
     -- Plug 'easymotion/vim-easymotion'
@@ -61,40 +64,16 @@ end
 plugins()
 
 -- Color scheme
-require("nightfox").setup({
-  options = {
-    -- Compiled file's destination location
-    transparent = false,    -- Disable setting background
-    terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-    dim_inactive = true,   -- Non focused panes set to alternative background
-    styles = {              -- Style to be applied to different syntax groups
-      comments = "italic",    -- Value is any valid attr-list value `:help attr-list`
-      conditionals = "NONE",
-      constants = "bold",
-      functions = "bold",
-      keywords = "NONE",
-      numbers = "NONE",
-      operators = "NONE",
-      strings = "NONE",
-      types = "NONE",
-      variables = "NONE",
-    },
-    inverse = {             -- Inverse highlight for different types
-      match_paren = false,
-      visual = false,
-      search = false,
-    },
-    modules = {             -- List of various plugins and additional options
-      -- ...
-    },
-  }
-})
--- vim.cmd.colorscheme "dim"
-vim.cmd.colorscheme "catppuccin-mocha"
+vim.o.background = "dark"
+require('everforest').setup {
+  background = "hard",
+}
+vim.cmd([[colorscheme everforest]])
 
 require('lualine').setup {
   options = {
-    icons_enabled = false,
+    theme = 'everforest',
+    icons_enabled = true,
     --theme = 'auto',
     -- component_separators = { left = '', right = ''},
     -- section_separators = { left = '', right = ''},
@@ -176,7 +155,10 @@ vim.g.clipboard = {
   cache_enabled = 1,
 }
 
-vim.o.spell = true
+vim.o.spell = false
+vim.keymap.set("n", "<space>ss", function()
+  vim.o.spell = not vim.o.spell
+end, { noremap = true, expr = true, silent = true })
 vim.o.spelllang = "en_us"
 
 vim.o.hlsearch = true
@@ -271,14 +253,14 @@ nvim_lsp.elmls.setup {}
 require("telescope.actions")
 require("telescope").setup {pickers = {buffers = {sort_lastused = true}}}
 
-local mpm = require "ma-pur-ma"
-vim.keymap.set('n', '<SPACE>pe', mpm.extract_to_function)
-vim.keymap.set('v', '<SPACE>pe', mpm.extract_to_function)
-vim.keymap.set('n', '<SPACE>pi', mpm.toggle_export)
-vim.keymap.set('n', '<SPACE>pf', mpm.if_to_case)
-vim.keymap.set('n', '<SPACE>pc', mpm.fill_in_data_case)
+-- local mpm = require "ma-pur-ma"
+-- vim.keymap.set('n', '<SPACE>pe', mpm.extract_to_function)
+-- vim.keymap.set('v', '<SPACE>pe', mpm.extract_to_function)
+-- vim.keymap.set('n', '<SPACE>pi', mpm.toggle_export)
+-- vim.keymap.set('n', '<SPACE>pf', mpm.if_to_case)
+-- vim.keymap.set('n', '<SPACE>pc', mpm.fill_in_data_case)
 
-local terafox_pallet = require("nightfox.palette").load("terafox")
+-- local terafox_pallet = require("nightfox.palette").load("terafox")
 -- Add fancy indentation syntax
 -- vim.cmd(string.format("highlight IndentBlanklineIndent1 guibg=%s gui=nocombine", terafox_pallet.bg2))
 -- vim.cmd(string.format("highlight IndentBlanklineIndent2 guibg=%s gui=nocombine", terafox_pallet.bg1))

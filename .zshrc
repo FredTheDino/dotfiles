@@ -73,13 +73,15 @@ show_ssh() {
 prompt() {
     EXIT=$?
     if [[ $EXIT -ne 0 ]]; then
-        EXIT="%B%F{red}-$EXIT-%f%b"
+        EXIT="%B%F{red}$EXIT%f%b"
     else
         EXIT=""
     fi
     
-    echo -n -e "$(show_ssh)%f $(show_git_status) %B%F{green}%2~%f%b $EXIT%B%F{green}::%b%f "
+    echo -n -e "$(show_ssh)%f $(show_git_status) %B%F{green}%2~%f%b $EXIT%B%F{green}⏺%b%f "
 }
+
+export PROMPT="$(prompt)"
 
 GPG_TTY=$(tty)
 export GPG_TTY
@@ -88,3 +90,5 @@ export XDG_DATA_HOME=$HOME/.local/share
 export PATH=~/.local/bin:~/Apps:$PATH:
 
 [ -f "/home/ed/.ghcup/env" ] && source "/home/ed/.ghcup/env" # ghcup-env
+
+
