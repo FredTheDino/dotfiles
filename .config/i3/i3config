@@ -1,0 +1,302 @@
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+#
+
+set $mod Mod4
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango: Fira Mono 9.5
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec alacritty
+
+# kill focused window
+bindsym $mod+e kill
+
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Shift+Left move left
+#bindsym $mod+Shift+Down move down
+#bindsym $mod+Shift+Up move up
+#bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+i layout stacking
+bindsym $mod+o layout default
+#bindsym $mod+s layout stacking
+
+bindsym $mod+F10 exec flameshot gui
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec pamixer -i 5 
+bindsym $mod+XF86AudioRaiseVolume exec pamixer -i 5 
+bindsym XF86AudioLowerVolume exec pamixer -d 5
+bindsym $mod+XF86AudioLowerVolume exec pamixer -d 5
+bindsym XF86AudioMute exec pamixer -t
+bindsym $mod+XF86AudioMute exec pamixer -t
+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
+bindsym $mod+XF86MonBrightnessUp exec xbacklight -inc 10 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 
+bindsym $mod+XF86MonBrightnessDown exec xbacklight -dec 10 
+
+bindsym $mod+Shift+s exec sudo systemctl suspend
+
+# focus the child container
+#bindsym $mod+d focus child
+
+bindsym $mod+less  move container to output right
+
+bindsym $mod+Shift+BackSpace move scratchpad
+bindsym $mod+BackSpace [class="Alacritty"] scratchpad show
+bindsym $mod+d scratchpad show
+bindsym $mod+w workspace back_and_forth
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $l_ws1 "1"
+set $l_ws2 "2"
+set $l_ws3 "3"
+set $l_ws4 "4"
+set $l_ws5 "5"
+set $l_ws6 "6"
+set $l_ws7 "7"
+set $l_ws8 "8"
+set $l_ws9 "9"
+set $l_ws0 "0"
+
+# switch to workspace
+bindsym $mod+1 workspace $l_ws1
+bindsym $mod+2 workspace $l_ws2
+bindsym $mod+3 workspace $l_ws3
+bindsym $mod+4 workspace $l_ws4
+bindsym $mod+5 workspace $l_ws5
+bindsym $mod+6 workspace $l_ws6
+bindsym $mod+7 workspace $l_ws7
+bindsym $mod+8 workspace $l_ws8
+bindsym $mod+9 workspace $l_ws9
+bindsym $mod+0 workspace $l_ws0
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $l_ws1
+bindsym $mod+Shift+2 move container to workspace $l_ws2
+bindsym $mod+Shift+3 move container to workspace $l_ws3
+bindsym $mod+Shift+4 move container to workspace $l_ws4
+bindsym $mod+Shift+5 move container to workspace $l_ws5
+bindsym $mod+Shift+6 move container to workspace $l_ws6
+bindsym $mod+Shift+7 move container to workspace $l_ws7
+bindsym $mod+Shift+8 move container to workspace $l_ws8
+bindsym $mod+Shift+9 move container to workspace $l_ws9
+bindsym $mod+Shift+0 move container to workspace $l_ws0
+
+set $r_ws1 "r1"
+set $r_ws2 "r2"
+set $r_ws3 "r3"
+set $r_ws4 "r4"
+set $r_ws5 "r5"
+set $r_ws6 "r6"
+set $r_ws7 "r7"
+set $r_ws8 "r8"
+set $r_ws9 "r9"
+set $r_ws0 "r0"
+
+# switch to workspace
+bindsym $mod+Ctrl+1 workspace $r_ws1
+bindsym $mod+Ctrl+2 workspace $r_ws2
+bindsym $mod+Ctrl+3 workspace $r_ws3
+bindsym $mod+Ctrl+4 workspace $r_ws4
+bindsym $mod+Ctrl+5 workspace $r_ws5
+bindsym $mod+Ctrl+6 workspace $r_ws6
+bindsym $mod+Ctrl+7 workspace $r_ws7
+bindsym $mod+Ctrl+8 workspace $r_ws8
+bindsym $mod+Ctrl+9 workspace $r_ws9
+bindsym $mod+Ctrl+0 workspace $r_ws0
+
+# move focused container to workspace
+bindsym $mod+Ctrl+Shift+1 move container to workspace $r_ws1
+bindsym $mod+Ctrl+Shift+2 move container to workspace $r_ws2
+bindsym $mod+Ctrl+Shift+3 move container to workspace $r_ws3
+bindsym $mod+Ctrl+Shift+4 move container to workspace $r_ws4
+bindsym $mod+Ctrl+Shift+5 move container to workspace $r_ws5
+bindsym $mod+Ctrl+Shift+6 move container to workspace $r_ws6
+bindsym $mod+Ctrl+Shift+7 move container to workspace $r_ws7
+bindsym $mod+Ctrl+Shift+8 move container to workspace $r_ws8
+bindsym $mod+Ctrl+Shift+9 move container to workspace $r_ws9
+bindsym $mod+Ctrl+Shift+0 move container to workspace $r_ws0
+
+workspace $r_ws1 output HDMI-0
+workspace $r_ws2 output HDMI-0
+workspace $r_ws3 output HDMI-0
+workspace $r_ws4 output HDMI-0
+workspace $r_ws5 output HDMI-0
+workspace $r_ws6 output HDMI-0
+workspace $r_ws7 output HDMI-0
+workspace $r_ws8 output HDMI-0
+workspace $r_ws9 output HDMI-0
+workspace $r_ws0 output HDMI-0
+
+workspace $l_ws1 output DP-5
+workspace $l_ws2 output DP-5
+workspace $l_ws3 output DP-5
+workspace $l_ws4 output DP-5
+workspace $l_ws5 output DP-5
+workspace $l_ws6 output DP-5
+workspace $l_ws7 output DP-5
+workspace $l_ws8 output DP-5
+workspace $l_ws9 output DP-5
+workspace $l_ws0 output DP-5
+
+
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exit
+# Lock
+bindsym $mod+Shift+x exec systemctl suspend
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+gaps inner 15
+default_border pixel 10
+for_window [class="^.*"] border pixel 0
+for_window [class="game"] floating enabled
+
+set_from_resource $black	i3.background	"#000"
+set_from_resource $red		i3.color1	"#000"
+set_from_resource $green	i3.color2	"#000"
+set_from_resource $yellow	i3.color3	"#000"
+set_from_resource $blue		i3.color4	"#000"
+set_from_resource $magenta	i3.color5	"#000"
+set_from_resource $cyan		i3.color6	"#000"
+set_from_resource $grey		i3.color7	"#000"
+set_from_resource $white	i3.foreground	"#FFF"
+
+# class				Border	Bkgrd	Text	Ind	Child-border
+client.focused			$black	$black	$black	$cyan	$blue
+client.unfocused		$black	$black	$white	$cyan	$black
+client.focused_inactive 	$black	$black	$black	$cyan	$black
+client.urgent			$yellow	$black	$black	$cyan	$black
+client.background		$black
+
+# start dmenu (a program launcher)
+#bindsym $mod+p exec i3-dmenu-desktop --dmenu='dmenu -l 10 -i -fn Monaco-12 -nb "#1a1b20" -nf "#becfe3" -sb "#2c698e" -sf "#1a1b20"'
+bindsym $mod+p exec rofi -combi-modi drun#window -show combi -font "monaco 11"
+
+# read 1 character and mark the current window with this character
+bindsym $mod+m exec i3-input -F 'mark %s' -l 2 -P 'Mark: '
+
+# read 1 character and go to the window with the character
+bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 2 -P 'Goto: '
+
+bindsym $mod+s exec alacritty --title hover_me --hold -e search_in_lesslie.sh
+
+bindsym $mod+n exec alacritty --title hover_me --command editnote.sh
+
+bindsym $mod+Shift+d exec search_purs_docs.sh
+bindsym $mod+Shift+t exec firefox 'https://docs.google.com/document/d/138xERsBHktjLZaiD6gMjWAYREO1j0awi4DujG5kfU0o/edit'
+
+for_window [class="Alacritty" title="hover_me"] floating enable
+
+## Start i3bar to display a workspace bar (plus the system information i3status
+## finds out, if available)
+#bar {
+#	colors {
+#		background $black
+#			statusline $white
+#			separator $white
+#
+#			# 		   BORDER  FILL    TEXT
+#			focused_workspace  $blue  $blue  $black
+#			active_workspace   $grey   $blue  $black
+#			inactive_workspace $black  $black  $grey
+#			urgent_workspace   $yellow $yellow $black
+#			binding_mode       $blue  $blue  $black
+#	}
+#        status_command i3blocks -c ~/.config/i3/bar
+#	position top
+#	separator_symbol " "
+#}
+
+exec --no-startup-id ~/.config/polybar/launch.sh
+exec --no-strtup-id xbanish -i mod4
