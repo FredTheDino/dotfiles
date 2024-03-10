@@ -24,6 +24,7 @@ fi
 export BROWSER=$(which firefox)
 export EDITOR=$(which nvim)
 export VISUAL=$EDITOR
+export WEZTERM_CONFIG_FILE="~/.config/wezterm/config.lua"
 
 # Alias
 alias reboot="sudo systemctl reboot"

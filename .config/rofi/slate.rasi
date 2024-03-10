@@ -1,0 +1,56 @@
+/* RASI Theme */
+
+    
+* {
+	background:                      #372725;
+	bordercolor:                     #fdf6e3;
+	separatorcolor:                  #d7d2b7;
+	normal-background:               #372725;
+	normal-foreground:               #d7d2b7;
+	alternate-normal-foreground:     #493a35;
+  alternate-normal-background:     #493a35;
+	selected-normal-background:      #586e75;
+	selected-normal-foreground:      #d7d2b7;
+	active-background:               #372725;
+	active-foreground:               #6a94b5;
+	alternate-active-background:     #493a35;
+	selected-active-background:      #6a94b5;
+	selected-active-foreground:      #d7d2b7;
+	urgent-background:               #372725;
+	urgent-foreground:               #ef5d32;
+	alternate-urgent-background:     #493a35;
+	selected-urgent-background:      #ef5d32;
+	selected-urgent-foreground:      #d7d2b7;
+	alternate-normal-foreground:     @normal-foreground;
+	alternate-urgent-foreground:     @urgent-foreground;
+	alternate-active-foreground:     @active-foreground;
+	foreground:                      @normal-foreground;
+}
+
+* {
+    border-color: @foreground;
+    background-color: transparent;
+}
+#window {
+    background-color: @background;
+}
+#mainbox {
+}
+#message {
+    border-color: @separatorcolor;
+}
+#scrollbar {
+    handle-color: @normal-foreground;
+}
+#sidebar {
+    border-color: @separatorcolor;
+}
+#button selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+#inputbar, case-indicator, entry, prompt, button {
+    text-color:      @normal-foreground;
+}
+
+@theme "/home/ed/.config/rofi/slate.rasi"

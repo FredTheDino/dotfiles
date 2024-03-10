@@ -27,7 +27,8 @@ font pango:DejaVu Sans Mono 11
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 # start a terminal
-bindsym $mod+Return exec terminal
+bindsym $mod+Return exec wezterm --config-file=/home/ed/.config/wezterm/config.lua
+bindsym $mod+t      exec wezterm --config-file=/home/ed/.config/wezterm/config.lua --config initial_cols=50 --config initial_rows=30 -e /home/ed/Apps/todo.sh
 
 # kill focused window
 bindsym $mod+e kill
@@ -44,7 +45,7 @@ bindsym $mod+z exec --no-startup-id morc_menu
 
 exec --no-startup-id setxkbmap se -option caps:escape nodeadkeys
 exec --no-startup-id volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+bindsym $mod+Ctrl+m exec  wezterm --config-file=/home/ed/.config/wezterm/config.lua -e 'alsamixer'
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
@@ -56,11 +57,11 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
+bindsym $mod+Ctrl+b exec  wezterm --config-file=/home/ed/.config/wezterm/config.lua -e 'bmenu'
 bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec terminal -e ranger
+bindsym $mod+F3 exec  wezterm --config-file=/home/ed/.config/wezterm/config.lua -e ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
-bindsym $mod+F5 exec terminal -e 'mocp'
+bindsym $mod+F5 exec  wezterm --config-file=/home/ed/.config/wezterm/config.lua -e 'mocp'
 bindsym $mod+Ctrl+t exec --no-startup-id pkill picom
 bindsym $mod+Shift+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
@@ -207,6 +208,7 @@ for_window [class="Lxappearance"] floating enable sticky enable border normal
 for_window [class="Manjaro-hello"] floating enable
 for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [title="MuseScore: Play Panel"] floating enable
+for_window [title="TODO"] floating enable
 for_window [class="Nitrogen"] floating enable sticky enable border normal
 for_window [class="Oblogout"] fullscreen enable
 for_window [class="octopi"] floating enable
@@ -291,12 +293,12 @@ exec --no-startup-id pamac-tray
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
-set $background   #232A2E
-set $foreground   #D3C6AA
+set $background   #372725
+set $foreground   #d7d2b7
 
-set $subtle #56635f
-set $green  #DBBC7F
-set $red    #514045   
+set $subtle #7d7265
+set $green  #dc9e31
+set $red    #ef5d32
 
 set $padding 10px
 set $padding_right_primary 10px

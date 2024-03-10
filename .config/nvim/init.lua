@@ -6,6 +6,7 @@ function plugins()
     -- Plug("tpope/vim-repeat")
     -- Plug("tpope/vim-surround")
     Plug("tpope/vim-obsession")
+    Plug("tpope/vim-dispatch")
     -- Plug("tpope/vim-rhubarb")
 
     -- Language extensions
@@ -22,13 +23,15 @@ function plugins()
     Plug("junegunn/goyo.vim")
 
     -- Making it look good
-    -- Plug("jeffkreeftmeijer/vim-dim")
+    Plug("ribru17/bamboo.nvim")
+    Plug("jeffkreeftmeijer/vim-dim")
+    -- Plug("ronny/birds-of-paradise.vim")
     -- Plug("EdenEast/nightfox.nvim")
     -- Plug("catppuccin/nvim", { as="catppuccin" })
     -- Plug("ellisonleao/gruvbox.nvim")
     -- Plug("shaunsingh/seoul256.nvim"), no highlight in search
     -- Plug("bluz71/vim-moonfly-colors", { ["as"] = "moonfly" })
-    Plug("neanias/everforest-nvim", { ["as"] = "everforest" })
+    -- Plug("neanias/everforest-nvim", { ["as"] = "everforest" })
     Plug("nvim-lualine/lualine.nvim")
 
     -- Core workflow
@@ -37,6 +40,7 @@ function plugins()
 
     Plug("nvim-lua/plenary.nvim") -- Needed by telescope
     Plug("nvim-telescope/telescope.nvim")
+    Plug("nvim-telescope/telescope-ui-select.nvim")
 
     -- Treesitter
     -- Plug("nvim-treesitter/nvim-treesitter")
@@ -64,19 +68,95 @@ end
 plugins()
 
 -- Color scheme
+-- require('everforest').setup {
+--   background = "hard",
+-- }
 vim.o.background = "dark"
-require('everforest').setup {
-  background = "hard",
+require('bamboo').setup {
+  -- Main options --
+  -- NOTE: to use the light theme, set `vim.o.background = 'light'`
+  style = 'vulgaris', -- Choose between 'vulgaris' (regular), 'multiplex' (greener), and 'light'
+  toggle_style_key = "<space>tt", -- Keybind to toggle theme style. Leave it nil to disable it, or set it to a string, e.g. "<leader>ts"
+  toggle_style_list = { 'light', 'vulgaris' }, -- List of styles to toggle between
+  transparent = false, -- Show/hide background
+  dim_inactive = true, -- Dim inactive windows/buffers
+  term_colors = true, -- Change terminal color as per the selected theme style
+  ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+  cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+
+  -- Change code style ---
+  -- Options are anything that can be passed to the `vim.api.nvim_set_hl` table
+  -- You can also configure styles with a string, e.g. keywords = 'italic,bold'
+  code_style = {
+    comments = { italic = true },
+    conditionals = { italic = true },
+    keywords = {},
+    functions = {},
+    namespaces = { italic = true },
+    parameters = { italic = true },
+    strings = {},
+    variables = {},
+  },
+
+  -- Lualine options --
+  lualine = {
+    transparent = false,
+  },
+
+  -- Custom Highlights --
+  colors = {},
+  highlights = {},
+
+  -- Plugins Config --
+  diagnostics = {
+    darker = false,
+    undercurl = true,
+    background = true,
+  },
 }
-vim.cmd([[colorscheme everforest]])
+vim.cmd([[colorscheme bamboo]])
+-- vim.cmd([[
+--   hi Comment guifg=#877c6e guibg=NONE
+--   hi Cursor guifg=#5e442f guibg=NONE
+--   set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr:hor20,o:hor50
+-- ]])
+
+--[[
+local colors = {
+  blue   = '#dc9e31',
+  cyan   = '#c3c05a',
+  black  = '#493a35',
+  white  = '#d7d2b7',
+  red    = '#ef5d32',
+  violet = '#6a94b5',
+  grey   = '#7d7265',
+}
+
+local lua_line_theme = {
+  normal = {
+    a = { fg = colors.black, bg = colors.red },
+    b = { fg = colors.white, bg = colors.grey },
+    c = { fg = colors.grey, bg = colors.black },
+  },
+
+  insert = { a = { fg = colors.black, bg = colors.blue } },
+  visual = { a = { fg = colors.black, bg = colors.cyan } },
+  replace = { a = { fg = colors.black, bg = colors.violet } },
+
+  inactive = {
+    a = { fg = colors.white, bg = colors.black },
+    b = { fg = colors.white, bg = colors.black },
+    c = { fg = colors.black, bg = colors.black },
+  },
+}
+]]--
 
 require('lualine').setup {
   options = {
-    theme = 'everforest',
+    theme = "bamboo",
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
     icons_enabled = true,
-    --theme = 'auto',
-    -- component_separators = { left = '', right = ''},
-    -- section_separators = { left = '', right = ''},
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -112,6 +192,13 @@ require('lualine').setup {
 }
 
 require('telescope').setup({
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
+      }
+    }
+  },
   defaults = {
     layout_config = {
       -- other layout configuration here
@@ -131,6 +218,7 @@ vim.o.mouse = ""
 vim.o.breakindent = true
 vim.o.linebreak = true
 vim.o.undofile = true
+vim.o.exrc = true
 
 -- vim.o.showbreak = "|"
 vim.o.wrap = true
@@ -168,6 +256,8 @@ vim.o.smartcase = true
 vim.o.updatetime = 150
 vim.o.termguicolors = true
 
+vim.g["lesslie_auto_fold"] = true
+
 -- Custom keymap
 vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
@@ -181,14 +271,29 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+function replace_text_after_cursor(cmd)
+  return function()
+    local to_insert = vim.fn.system(cmd):gsub("%s+$", ""):gsub("^%s", "")
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local line = vim.api.nvim_get_current_line()
+    local nline = line:sub(0, pos[2]) .. to_insert .. line:sub(pos[2] + 1)
+    vim.api.nvim_set_current_line(nline)
+    pos[2] = pos[2] + string.len(to_insert)
+    vim.api.nvim_win_set_cursor(0, pos)
+  end
+end
+
+vim.keymap.set('n', "<SPACE>id", replace_text_after_cursor { "date", "--iso-8601=date" })
+vim.keymap.set('n', "<SPACE>it", replace_text_after_cursor { "date", "--iso-8601=seconds" })
+
 vim.cmd([[
-  nnoremap <C-g> <cmd>Telescope live_grep search_dirs=["lib/","src/","tests/"]<CR>
+  nnoremap <C-g> <cmd>Telescope live_grep search_dirs=["lib/","src/","tests/","crates/"]<CR>
   nnoremap <C-f> <cmd>Telescope find_files<CR>
   nnoremap <C-b> <cmd>Telescope buffers<CR>
   nnoremap <C-n> <cmd>Telescope tags<CR>
   nnoremap <C-e> <cmd>Telescope diagnostics<CR>
   " nnoremap <C-o> <cmd>Telescope git_branches<CR>
-  nnoremap <C-SPACE> <cmd>lua require('telescope.builtin').grep_string({search = vim.fn.expand("<cword>"), search_dirs={"lib/", "src/", "tests/"}, word_match="-w"})<cr>
+  nnoremap <C-SPACE> <cmd>lua require('telescope.builtin').grep_string({search = vim.fn.expand("<cword>"), search_dirs={"lib/", "src/", "tests/", "crates/"}, word_match="-w"})<cr>
   " nnoremap <C-q> <cmd>:Lines<CR>
   nnoremap <C-h> <C-w>h
   nnoremap <C-j> <C-w>j
@@ -205,6 +310,7 @@ vim.cmd([[
   nnoremap <SPACE>d :lua vim.lsp.buf.definition()<CR>
   nnoremap <SPACE>u :lua vim.lsp.buf.references()<CR>
   nnoremap <SPACE>c :lua vim.lsp.buf.incoming_calls()<CR>
+  nnoremap <SPACE>nn :e $MYVIMRC<CR>
 
   let g:purescript_disable_indent = 1
   let g:purescript_unicode_conceal_enable = 0
@@ -252,6 +358,7 @@ nvim_lsp.elmls.setup {}
 
 require("telescope.actions")
 require("telescope").setup {pickers = {buffers = {sort_lastused = true}}}
+require("telescope").load_extension("ui-select")
 
 -- local mpm = require "ma-pur-ma"
 -- vim.keymap.set('n', '<SPACE>pe', mpm.extract_to_function)
