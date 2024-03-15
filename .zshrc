@@ -49,40 +49,25 @@ bindkey "^o" edit-command-line
 
 # Prompt
 
-show_git_status() {
-    IS_GIT=$( if [[ -d .git ]]; then echo "GIT"; fi )
-    GIT=""
-    if ! [[ -z $IS_GIT ]]; then
-        GIT_BRANCH=$( git rev-parse --abbrev-ref HEAD )
-
-        $(git diff --no-ext-diff --quiet)
-        if [[ $? -eq 0 ]]; then
-            GIT="%f[%B$GIT_BRANCH%b]"
-        else
-            GIT="%f<%B%F{red}$GIT_BRANCH%f%b>"
-        fi
-    fi
-    echo -n -e "$GIT"
-}
-
 show_ssh() {
     if [[ -n $SSH_CONNECTION ]]; then
         echo -n -e "%f%B%F{red}##%f%b"
     fi
 }
 
-prompt() {
+source /home/ed/Code/zsh-git-prompt/zshrc.sh
+
+show_exit_code() {
     EXIT=$?
-    if [[ $EXIT -ne 0 ]]; then
-        EXIT="%B%F{red}$EXIT%f%b"
+    if [[ $EXIT -ne 255 ]]; then
+        EXIT="%B%F{red}$EXIT%f%b "
     else
         EXIT=""
     fi
-    
-    echo -n -e "$(show_ssh)%f $(show_git_status) %B%F{green}%2~%f%b $EXIT%B%F{green}⏺%b%f "
+    echo -n -e $EXIT
 }
 
-export PROMPT="$(prompt)"
+PROMPT='$(show_ssh)%f$(git_super_status) %B%F{green}%2~%f%b %(?..%B%F{red}%?%f %b)%B%F{green}⏺%b%f '
 
 GPG_TTY=$(tty)
 export GPG_TTY
