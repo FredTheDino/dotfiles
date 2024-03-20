@@ -1,0 +1,36 @@
+align=center
+separator_block_width=30
+
+[datetime]
+align=center
+verbose=0
+command=python3 /home/ed/Apps/clock-widget.py
+format=json
+interval=1
+markup=pango
+
+[cpu]
+align=center
+command=python3 /home/ed/Apps/cpu-widget.py
+interval=persist
+markup=pango
+min_width=abcdefghijklmnop
+
+[battery]
+flash=1
+command=python3 /home/ed/Apps/battery-widget.py
+interval=10
+format=json
+min_width=ab%
+markup=pango
+
+# Add back in later
+[weather]
+command=bash /home/ed/Apps/weather-widget.sh
+interval=3600
+
+[vpn]
+align=center
+command=bash /home/ed/Apps/vpn-widget.sh
+interval=60
+markup=pango

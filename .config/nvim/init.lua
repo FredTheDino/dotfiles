@@ -336,13 +336,11 @@ vim.highlight.on_yank()
 
 -- LSP Configs
 local nvim_lsp = require("lspconfig")
-nvim_lsp.elixirls.setup {cmd = {"/home/ed/Apps/elixir-ls/language_server.sh"}}
 nvim_lsp.purescriptls.setup {
   settings = {
     purescript = {
       addSpagoSources = true,
       codegenTargets = { "erl" },
-      formatter = "purs-tidy"
     }
   },
   flags = {debounce_text_changes = 50}

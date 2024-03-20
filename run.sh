@@ -1,1 +1,1 @@
-stow . --ignore=.git --ignore=run.sh
+stow -R . --ignore=.git --ignore=run.sh

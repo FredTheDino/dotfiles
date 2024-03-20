@@ -52,7 +52,7 @@ config.use_fancy_tab_bar = false
 --   },
 -- }
 
-config.font = wezterm.font('Input Mono', {})
+config.font = wezterm.font('Lilex', {})
 config.font_size = 10.0
 config.audible_bell = "Disabled"
 config.bold_brightens_ansi_colors = "BrightAndBold"
