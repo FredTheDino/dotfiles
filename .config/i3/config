@@ -43,9 +43,11 @@ bindsym $mod+z exec --no-startup-id morc_menu
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
 
+# Start i3bar to display a workspace bar (plus the system information i3status if available)
+exec --no-startup-id waybar
 exec --no-startup-id setxkbmap se -option caps:escape nodeadkeys
-exec --no-startup-id volumeicon
-bindsym $mod+Ctrl+m exec  wezterm --config-file=/home/ed/.config/wezterm/config.lua -e 'alsamixer'
+exec --no-startup-id swaybg -i .config/wallpapers/ile-of-sky.png
+exec --no-startup-id 'sway input 1:1:AT_Translated_Set_2_keyboard xkb_layout se; sway input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape'
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
 #bindsym $mod+Ctrl+m exec pavucontrol
@@ -224,14 +226,16 @@ for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 
+assign [class="discord"] $ws0
+
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+c restart
 
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -275,23 +279,13 @@ mode $resize {
 }
 
 # Lock screen
-bindsym $mod+Shift+x exec --no-startup-id i3lock -c 7d7265
+bindsym $mod+Shift+x exec --no-startup-id lock
 
 # Autostart applications
+exec --no-startup-id fusuma
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-# exec --no-startup-id manjaro-hello
-exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
-exec --no-startup-id pamac-tray
-# exec --no-startup-id clipit
-# exec --no-startup-id blueman-applet
-# exec_always --no-startup-id sbxkb
-# exec --no-startup-id start_conky_maia
-# exec --no-startup-id start_conky_green
-# exec --no-startup-id xautolock -time 10 -locker blurlock
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
+
+exec --no-startup-id swayidle -w timeout 300 'lock' timeout 100 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'lock'
 
 set $background   #372725
 set $foreground   #d7d2b7
@@ -303,38 +297,6 @@ set $red    #ef5d32
 set $padding 10px
 set $padding_right_primary 10px
 
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-	status_command i3blocks -c .config/i3/i3blocks
-  font pango:Lilex 10
-  tray_output primary
-  separator_symbol "  "
-	position top
-  padding 0px $padding_right_primary 0px $padding 
-  workspace_min_width 20px
-
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
-
-	bindsym button4 nop
-	bindsym button5 nop
-#   font xft:URWGothic-Book 11
-	strip_workspace_numbers yes
-
-  colors {
-      background $background
-      statusline $foreground
-      separator  #00000000
-
-#                      border  backgr. text
-      focused_workspace  $green $green $background
-      active_workspace   $green $background  $green
-      inactive_workspace $subtle $subtle $foreground
-      binding_mode       $green $green $background
-      urgent_workspace   $red    $background $red
-  }
-}
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
@@ -406,3 +368,23 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+
+blur enable
+blur_passes 2
+blur_radius 10
+blur_noise 0.2
+
+shadows enable
+shadow_blur_radius 20
+
+default_dim_inactive 0.1
+
+corner_radius 5
+
+input 2362:597:UNIW0001:00_093A:0255_Touchpad tap enable
+input 2362:597:UNIW0001:00_093A:0255_Touchpad natural_scroll enable
+input 2362:597:UNIW0001:00_093A:0255_Touchpad scroll_factor 0.5
+input 2362:597:UNIW0001:00_093A:0255_Touchpad scroll_factor 0.5
+input 1:1:AT_Translated_Set_2_keyboard xkb_layout se
+input 1:1:AT_Translated_Set_2_keyboard xkb_variant nodeadkeys
+input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape
