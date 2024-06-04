@@ -69,7 +69,7 @@ export WEZTERM_CONFIG_FILE="~/.config/wezterm/config.lua"
 alias reboot="sudo systemctl reboot"
 alias poweroff="sudo systemctl poweroff"
 alias hibernate="echo 'Going to bed' && sudo systemctl hibernate"
-alias suspend="echo 'Going to bed' && sudo systemctl suspend"
+alias suspend="echo 'Going to zzz' && sudo systemctl suspend"
 
 alias :q="exit"
 alias vi='nvim'
@@ -79,11 +79,14 @@ alias view='zathura'
 alias pomac='pamac'
 alias capslock='xdotool key Caps_Lock'
 alias keys='setxkbmap se -option caps:escape nodeadkeys'
+alias skeys='sway input 1:1:AT_Translated_Set_2_keyboard xkb_layout se; sway input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape'
+alias td='todo.sh'
 
 # Just throw in the keyconfig here
 
 autoload -Uz edit-command-line
 zle -N edit-command-line
+set -o emacs
 bindkey "^o" edit-command-line
 
 # Prompt
@@ -112,7 +115,7 @@ GPG_TTY=$(tty)
 export GPG_TTY
 export XDG_DATA_HOME=$HOME/.local/share
 
-export PATH=~/.local/bin:~/Apps:$PATH:
+export PATH=~/.local/bin:~/Apps:$PATH:/root/.local/share/gem/ruby/3.0.0/bin:~/.cargo/bin/
 
 [ -f "/home/ed/.ghcup/env" ] && source "/home/ed/.ghcup/env" # ghcup-env
 
