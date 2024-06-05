@@ -52,10 +52,12 @@ config.use_fancy_tab_bar = false
 --   },
 -- }
 
-config.font = wezterm.font('Lilex', {})
+config.font = wezterm.font('Lilex Nerd Font', {})
 config.font_size = 11.0
 config.audible_bell = "Disabled"
 config.bold_brightens_ansi_colors = "BrightAndBold"
+
+config.window_background_opacity = 0.8
 
 config.window_padding = {
   left = 0,

@@ -3,7 +3,7 @@ function plugins()
   vim.call("plug#begin", "~/.config/nvim/plugged")
   do
     Plug("tpope/vim-fugitive")
-    -- Plug("tpope/vim-repeat")
+    Plug("tpope/vim-repeat")
     -- Plug("tpope/vim-surround")
     Plug("tpope/vim-obsession")
     Plug("tpope/vim-dispatch")
@@ -21,8 +21,13 @@ function plugins()
     Plug("alaviss/nim.nvim")
     Plug("terrastruct/d2-vim")
 
+    Plug("ggandor/leap.nvim")
+
     -- To minimize distractions
     Plug("junegunn/goyo.vim")
+
+    -- Todo.txt
+    Plug("freitass/todo.txt-vim")
 
     -- Making it look good
     Plug("ribru17/bamboo.nvim")
@@ -35,6 +40,9 @@ function plugins()
     -- Plug("bluz71/vim-moonfly-colors", { ["as"] = "moonfly" })
     -- Plug("neanias/everforest-nvim", { ["as"] = "everforest" })
     Plug("nvim-lualine/lualine.nvim")
+
+    Plug("m15a/vim-fennel-syntax")
+    Plug("udayvir-singh/tangerine.nvim")
 
     -- Core workflow
     Plug("neovim/nvim-lspconfig")
@@ -63,11 +71,19 @@ function plugins()
 
     -- Candidates
     -- https://github.com/dcampos/nvim-snippy
+    Plug("xiyaowong/transparent.nvim")
   end
   vim.call("plug#end")
 end
 
 plugins()
+vim.g.maplocalleader = ';'
+
+require "tangerine".setup {}
+
+vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
+vim.keymap.set('n',        's', '<Plug>(leap)')
+vim.keymap.set('n',        'S', '<Plug>(leap-from-window)')
 
 vim.keymap.set({'n'}, 's',  '<Plug>(leap)')
 vim.keymap.set({'n'}, 'S', '<Plug>(leap-from-window)')
@@ -120,6 +136,7 @@ require('bamboo').setup {
   },
 }
 vim.cmd([[colorscheme bamboo]])
+
 -- vim.cmd([[
 --   hi Comment guifg=#877c6e guibg=NONE
 --   hi Cursor guifg=#5e442f guibg=NONE
@@ -216,6 +233,7 @@ require('telescope').setup({
 -- vim.g.neoformat_enabled_purescript = {"purstidy"}
 vim.g.neoformat_enabled_haskell = {"ormolu"}
 vim.g.neoformat_enabled_lua = {"lua-format"}
+vim.g.neoformat_enabled_python = {"black"}
 
 -- Vim options
 vim.o.number = true
@@ -234,16 +252,15 @@ vim.o.shiftwidth = vim.o.tabstop
 vim.o.softtabstop = 0
 vim.o.expandtab = true
 
-local xclip_clipboard_name = "clipboard"  
 vim.g.clipboard = {
-  name = "goodxclip",
+  name = "wl-clipboard",
   copy = {
-    ['+'] = {'xclip', '-quiet', '-i', '-selection', xclip_clipboard_name},
-    ['*'] = {'xclip', '-quiet', '-i', '-selection', xclip_clipboard_name},
+    ['+'] = {'wl-copy', "--primary"},
+    ['*'] = {'wl-copy'},
   },
   paste = {
-    ['+'] = {'xclip', '-o', '-selection', xclip_clipboard_name},
-    ['*'] = {'xclip', '-o', '-selection', xclip_clipboard_name},
+    ['+'] = {'wl-paste', "--primary"},
+    ['*'] = {'wl-paste'},
   },
   cache_enabled = 1,
 }
@@ -316,6 +333,9 @@ vim.cmd([[
   nnoremap <SPACE>u :lua vim.lsp.buf.references()<CR>
   nnoremap <SPACE>c :lua vim.lsp.buf.incoming_calls()<CR>
   nnoremap <SPACE>nn :e $MYVIMRC<CR>
+  nnoremap <SPACE>tt :vnew<CR>:e ~/Sync/todo/todo.txt<CR>
+
+  nnoremap <SPACE>p :lua require("precognition").peek()<CR>
 
   let g:purescript_disable_indent = 1
   let g:purescript_unicode_conceal_enable = 0
@@ -341,6 +361,7 @@ vim.highlight.on_yank()
 
 -- LSP Configs
 local nvim_lsp = require("lspconfig")
+nvim_lsp.fennel_ls.setup {}
 nvim_lsp.purescriptls.setup {
   settings = {
     purescript = {

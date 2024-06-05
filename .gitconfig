@@ -10,9 +10,11 @@
   verbose = true
 [pull]
   rebase = false
+  autoStash = true
 [push]
   default = tracking
   followTags = true
+  autoSetupRemote = true
 [commit]
   verbose = true
   # gpgsign = true
@@ -29,6 +31,7 @@
   hide = update-index --assume-unchanged
   lg = log --graph --branches --tags --pretty=format:'%C(auto)%h%d %aN (%G?) %ar%n%<(50,trunc)%s%Creset%n'
   undo = reset HEAD~
+  pr = !gh pr create
 [init]
   defaultBranch = main
 
@@ -50,3 +53,5 @@
 
 [branch]
 	sort = -committerdate
+
+
