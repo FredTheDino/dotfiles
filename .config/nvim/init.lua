@@ -9,6 +9,8 @@ function plugins()
     Plug("tpope/vim-dispatch")
     -- Plug("tpope/vim-rhubarb")
 
+    Plug("ggandor/leap.nvim")
+
     -- Language extensions
     Plug("FredTheDino/sylt.vim")
     Plug("elixir-editors/vim-elixir")
@@ -66,6 +68,9 @@ function plugins()
 end
 
 plugins()
+
+vim.keymap.set({'n'}, 's',  '<Plug>(leap)')
+vim.keymap.set({'n'}, 'S', '<Plug>(leap-from-window)')
 
 -- Color scheme
 -- require('everforest').setup {
