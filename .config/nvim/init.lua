@@ -1,14 +1,16 @@
-function plugins()
+local function plugins()
   local Plug = vim.fn["plug#"]
   vim.call("plug#begin", "~/.config/nvim/plugged")
   do
     Plug("tpope/vim-fugitive")
     Plug("tpope/vim-repeat")
-    -- Plug("tpope/vim-surround")
     Plug("tpope/vim-obsession")
     Plug("tpope/vim-dispatch")
-    -- Plug("tpope/vim-rhubarb")
+    Plug("tpope/vim-vinegar")
 
+    Plug("folke/noice.nvim")
+    Plug("MunifTanjim/nui.nvim")
+    Plug("lukas-reineke/indent-blankline.nvim", { as = "ibl" } )
 
     -- Language extensions
     Plug("FredTheDino/sylt.vim")
@@ -17,89 +19,104 @@ function plugins()
     Plug("rhysd/rust-doc.vim")
     Plug("rust-lang/rust.vim")
     Plug("tikhomirov/vim-glsl")
-    Plug("alaviss/nim.nvim")
     Plug("terrastruct/d2-vim")
+    Plug("sputnick1124/uiua.vim")
+    Plug("S1M0N38/love2d.nvim")
+    Plug("kaarmu/typst.vim")
+    Plug("nvim-treesitter/nvim-treesitter")
 
     Plug("ggandor/leap.nvim")
 
-    -- To minimize distractions
-    Plug("junegunn/goyo.vim")
+    Plug("mfussenegger/nvim-dap")
+    Plug("nvim-neotest/nvim-nio")
+    Plug("rcarriga/nvim-dap-ui")
 
-    -- Todo.txt
-    Plug("freitass/todo.txt-vim")
-
-    -- Making it look good
     Plug("ribru17/bamboo.nvim")
+    Plug("folke/tokyonight.nvim")
     Plug("jeffkreeftmeijer/vim-dim")
     -- Plug("ronny/birds-of-paradise.vim")
     -- Plug("EdenEast/nightfox.nvim")
-    -- Plug("catppuccin/nvim", { as="catppuccin" })
+    Plug("catppuccin/nvim", { as="catppuccin" })
     -- Plug("ellisonleao/gruvbox.nvim")
     -- Plug("shaunsingh/seoul256.nvim"), no highlight in search
-    -- Plug("bluz71/vim-moonfly-colors", { ["as"] = "moonfly" })
-    -- Plug("neanias/everforest-nvim", { ["as"] = "everforest" })
+    -- Plug("bluz71/vim-moonfly-colors", { as = "moonfly" })
+    Plug("neanias/everforest-nvim", { as = "everforest" })
+    Plug('bluz71/vim-moonfly-colors', { as = "moonfly" })
     Plug("nvim-lualine/lualine.nvim")
 
-    Plug("m15a/vim-fennel-syntax")
-    Plug("udayvir-singh/tangerine.nvim")
-
     -- Core workflow
-    Plug("neovim/nvim-lspconfig")
     Plug("sbdchd/neoformat")
 
     Plug("nvim-lua/plenary.nvim") -- Needed by telescope
     Plug("nvim-telescope/telescope.nvim")
     Plug("nvim-telescope/telescope-ui-select.nvim")
-
-    -- Treesitter
-    -- Plug("nvim-treesitter/nvim-treesitter")
-    -- Plug("nvim-treesitter/highlight.lua")
-    -- Plug("nvim-treesitter/nvim-treesitter-refactor")
-    -- Plug('nvim-treesitter/playground')
-
-    -- Under review
+    Plug("neovim/nvim-lspconfig")
+    Plug("neovim/nvim-lspconfig")
     Plug("rafcamlet/nvim-luapad")
-    -- Plug("lukas-reineke/indent-blankline.nvim")
-    -- Plug("stevearc/aerial.nvim")
-    -- Plug("mvllow/modes.nvim")
-
-    -- Plug("FredTheDino/ma-pur-ma.nvim")
-
-    -- On thin ice
-    -- Plug 'easymotion/vim-easymotion'
-
-    -- Candidates
-    -- https://github.com/dcampos/nvim-snippy
-    Plug("xiyaowong/transparent.nvim")
   end
   vim.call("plug#end")
 end
 
 plugins()
+
+require'nvim-treesitter.configs'.setup {
+    -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+  ensure_installed = { "nim" },
+  sync_install = true,
+  auto_install = true,
+  ignore_install = { "purescript" },
+}
+
+require("nvim-treesitter.install").prefer_git = true
+
+local highlight = {
+    "CursorColumn",
+}
+require("ibl").setup {
+    scope = { enabled = true },
+}
 vim.g.maplocalleader = ';'
 
-require "tangerine".setup {}
+-- vim.lsp.log.set_level("INFO")
+require("noice").setup({
+  lsp = {
+    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+    },
+  },
+  -- you can enable a preset for easier configuration
+  presets = {
+    bottom_search = true, -- use a classic bottom cmdline for search
+    command_palette = true, -- position the cmdline and popupmenu together
+    long_message_to_split = true, -- long messages will be sent to a split
+    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    lsp_doc_border = false, -- add a border to hover docs and signature help
+  },
+})
 
+vim.g.typst_pdf_viewer = "zathura"
 vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
-vim.keymap.set('n',        's', '<Plug>(leap)')
-vim.keymap.set('n',        'S', '<Plug>(leap-from-window)')
+vim.keymap.set('n', 's', '<Plug>(leap)')
+vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
 
 -- Color scheme
--- require('everforest').setup {
---   background = "hard",
--- }
-vim.o.background = "dark"
+require('everforest').setup {
+  background = "hard",
+}
 require('bamboo').setup {
   -- Main options --
   -- NOTE: to use the light theme, set `vim.o.background = 'light'`
-  style = 'vulgaris', -- Choose between 'vulgaris' (regular), 'multiplex' (greener), and 'light'
-  toggle_style_key = "<space>tt", -- Keybind to toggle theme style. Leave it nil to disable it, or set it to a string, e.g. "<leader>ts"
+  style = 'vulgaris',                          -- Choose between 'vulgaris' (regular), 'multiplex' (greener), and 'light'
+  toggle_style_key = "<space>tt",              -- Keybind to toggle theme style. Leave it nil to disable it, or set it to a string, e.g. "<leader>ts"
   toggle_style_list = { 'light', 'vulgaris' }, -- List of styles to toggle between
-  transparent = false, -- Show/hide background
-  dim_inactive = true, -- Dim inactive windows/buffers
-  term_colors = true, -- Change terminal color as per the selected theme style
-  ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-  cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+  transparent = false,                         -- Show/hide background
+  dim_inactive = true,                         -- Dim inactive windows/buffers
+  term_colors = true,                          -- Change terminal color as per the selected theme style
+  ending_tildes = false,                       -- Show the end-of-buffer tildes. By default they are hidden
+  cmp_itemkind_reverse = false,                -- reverse item kind highlights in cmp menu
 
   -- Change code style ---
   -- Options are anything that can be passed to the `vim.api.nvim_set_hl` table
@@ -131,49 +148,15 @@ require('bamboo').setup {
     background = true,
   },
 }
-vim.cmd([[colorscheme bamboo]])
 
--- vim.cmd([[
---   hi Comment guifg=#877c6e guibg=NONE
---   hi Cursor guifg=#5e442f guibg=NONE
---   set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr:hor20,o:hor50
--- ]])
-
---[[
-local colors = {
-  blue   = '#dc9e31',
-  cyan   = '#c3c05a',
-  black  = '#493a35',
-  white  = '#d7d2b7',
-  red    = '#ef5d32',
-  violet = '#6a94b5',
-  grey   = '#7d7265',
-}
-
-local lua_line_theme = {
-  normal = {
-    a = { fg = colors.black, bg = colors.red },
-    b = { fg = colors.white, bg = colors.grey },
-    c = { fg = colors.grey, bg = colors.black },
-  },
-
-  insert = { a = { fg = colors.black, bg = colors.blue } },
-  visual = { a = { fg = colors.black, bg = colors.cyan } },
-  replace = { a = { fg = colors.black, bg = colors.violet } },
-
-  inactive = {
-    a = { fg = colors.white, bg = colors.black },
-    b = { fg = colors.white, bg = colors.black },
-    c = { fg = colors.black, bg = colors.black },
-  },
-}
-]]--
-
+-- vim.o.background = "dark"
+require('tokyonight').setup {}
+vim.cmd[[colorscheme bamboo]]
 require('lualine').setup {
   options = {
     theme = "bamboo",
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     icons_enabled = true,
     disabled_filetypes = {
       statusline = {},
@@ -188,20 +171,20 @@ require('lualine').setup {
     }
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'FugitiveHead', 'diff'},
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff' },
     lualine_c = { { 'filename', path = 1 } },
-    lualine_x = {'encoding', { 'fileformat', symbols = { unix = '', dos = 'dos',  mac = 'mac' } }, 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_x = { 'encoding', { 'fileformat', symbols = { unix = '', dos = 'dos', mac = 'mac' } }, 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
   },
   inactive_sections = {
     lualine_a = {},
-    lualine_b = {},
+    lualine_b = { 'FugitiveHead', 'diff' },
     lualine_c = { { 'filename', path = 1 } },
-    lualine_x = {'encoding', { 'fileformat', symbols = { unix = '', dos = 'dos',  mac = 'mac' } }, 'filetype'},
+    lualine_x = { 'encoding', { 'fileformat', symbols = { unix = '', dos = 'dos', mac = 'mac' } }, 'filetype' },
     lualine_y = {},
-    lualine_z = {'location'}
+    lualine_z = { 'location' }
   },
   tabline = {},
   winbar = {},
@@ -226,13 +209,15 @@ require('telescope').setup({
 })
 
 -- Formatter configs
--- vim.g.neoformat_enabled_purescript = {"purstidy"}
-vim.g.neoformat_enabled_haskell = {"ormolu"}
-vim.g.neoformat_enabled_lua = {"lua-format"}
-vim.g.neoformat_enabled_python = {"black"}
+vim.g.neoformat_enabled_purescript = {"purstidy"}
+vim.g.neoformat_enabled_haskell = { "ormolu" }
+vim.g.neoformat_enabled_lua = { "lua-format" }
+vim.g.neoformat_enabled_python = { "black" }
+vim.g.neoformat_enabled_nim = { "nph" }
+
 
 -- Vim options
-vim.o.number = true
+vim.o.number = false
 vim.o.mouse = ""
 vim.o.breakindent = true
 vim.o.linebreak = true
@@ -249,14 +234,14 @@ vim.o.softtabstop = 0
 vim.o.expandtab = true
 
 vim.g.clipboard = {
-  name = "wl-clipboard",
+  name = "copyq",
   copy = {
-    ['+'] = {'wl-copy', "--primary"},
-    ['*'] = {'wl-copy'},
+    ['+'] = { 'wl-copy' },
+    ['*'] = { 'wl-copy' },
   },
   paste = {
-    ['+'] = {'wl-paste', "--primary"},
-    ['*'] = {'wl-paste'},
+    ['+'] = { 'wl-paste' },
+    ['*'] = { 'wl-paste' },
   },
   cache_enabled = 1,
 }
@@ -325,9 +310,14 @@ vim.cmd([[
   tnoremap <C-C> <C-\><C-n>
   nnoremap <SPACE><SPACE> :lua vim.lsp.buf.hover()<CR>
   nnoremap <SPACE>a :lua vim.lsp.buf.code_action()<CR>
+  nnoremap <SPACE>s :lua vim.lsp.buf.document_symbol()<CR>
+  nnoremap <SPACE>S :lua vim.lsp.buf.workspace_symbol()<CR>
   nnoremap <SPACE>d :lua vim.lsp.buf.definition()<CR>
   nnoremap <SPACE>u :lua vim.lsp.buf.references()<CR>
+  nnoremap <SPACE>r :lua vim.lsp.buf.rename()<CR>
   nnoremap <SPACE>c :lua vim.lsp.buf.incoming_calls()<CR>
+  nnoremap <SPACE>q :lua vim.lsp.buf.format()<CR>
+  inoremap <C-o> <A-k>:lua vim.lsp.buf.completion()<CR>
   nnoremap <SPACE>nn :e $MYVIMRC<CR>
   nnoremap <SPACE>tt :vnew<CR>:e ~/Sync/todo/todo.txt<CR>
 
@@ -348,8 +338,6 @@ vim.cmd([[
     autocmd!
     autocmd BufWritePost *.dot undojoin | !dot -Tpdf % > %.pdf
   augroup END
-
-  autocmd bufwritepost ~/.config/kitty/kitty.conf :silent !kill -SIGUSR1 $(pgrep kitty) && notify-send "Kitty config updated"
 ]])
 
 -- Highlight on yank
@@ -358,124 +346,44 @@ vim.highlight.on_yank()
 -- LSP Configs
 local nvim_lsp = require("lspconfig")
 nvim_lsp.fennel_ls.setup {}
-nvim_lsp.purescriptls.setup {
-  settings = {
-    purescript = {
-      addSpagoSources = true,
-      codegenTargets = { "erl" },
-    }
-  },
-  flags = {debounce_text_changes = 50}
-}
 nvim_lsp.rust_analyzer.setup {}
 nvim_lsp.jedi_language_server.setup {}
+nvim_lsp.ruff.setup {}
 nvim_lsp.texlab.setup {}
 nvim_lsp.hls.setup {}
 nvim_lsp.elmls.setup {}
+nvim_lsp.ols.setup {}
+nvim_lsp.zls.setup {}
+nvim_lsp.gopls.setup {}
+nvim_lsp.uiua.setup {}
+nvim_lsp.sylt.setup {}
+nvim_lsp.hemlis.setup {}
+nvim_lsp.tinymist.setup {}
+nvim_lsp.nim_langserver.setup{}
+nvim_lsp.nimls.setup{}
 
--- Other configs
--- require("trouble").setup {}
+
+local settings = {
+  Lua = {
+    runtime = { version = "LuaJIT" },
+    workspace = {
+      checkThirdParty = false,
+      library = { vim.env.VIMRUNTIME .. "/lua" },
+    },
+  },
+}
+nvim_lsp.lua_ls.setup({
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+      client.config.settings = vim.tbl_deep_extend("force", client.config.settings, settings)
+    end
+  end,
+})
 
 require("telescope.actions")
-require("telescope").setup {pickers = {buffers = {sort_lastused = true}}}
+require("telescope").setup { pickers = { buffers = { sort_lastused = true } } }
 require("telescope").load_extension("ui-select")
 
--- local mpm = require "ma-pur-ma"
--- vim.keymap.set('n', '<SPACE>pe', mpm.extract_to_function)
--- vim.keymap.set('v', '<SPACE>pe', mpm.extract_to_function)
--- vim.keymap.set('n', '<SPACE>pi', mpm.toggle_export)
--- vim.keymap.set('n', '<SPACE>pf', mpm.if_to_case)
--- vim.keymap.set('n', '<SPACE>pc', mpm.fill_in_data_case)
-
--- local terafox_pallet = require("nightfox.palette").load("terafox")
--- Add fancy indentation syntax
--- vim.cmd(string.format("highlight IndentBlanklineIndent1 guibg=%s gui=nocombine", terafox_pallet.bg2))
--- vim.cmd(string.format("highlight IndentBlanklineIndent2 guibg=%s gui=nocombine", terafox_pallet.bg1))
--- 
--- require("indent_blankline").setup {
---     space_char_blankline = " ",
---     show_current_context = true,
---     show_current_context_start = true,
--- }
--- require("indent_blankline").setup {
---     char = "",
---     show_current_context = true,
---     show_current_context_start = true,
---     char_highlight_list = {
---         "IndentBlanklineIndent1",
---         "IndentBlanklineIndent2",
---     },
---     space_char_highlight_list = {
---         "IndentBlanklineIndent1",
---         "IndentBlanklineIndent2",
---     },
---     show_trailing_blankline_indent = false,
--- }
-
--- require("indent_blankline").setup {
---     char = "|",
---     show_current_context = true,
---     show_current_context_start = true,
---     show_current_context_start = true,
---     show_trailing_blankline_indent = true,
--- }
-
--- require"nvim-treesitter.configs".setup {
---   ensure_installed = { "c", "lua", "rust", "cpp" },
--- 
---   -- Automatically install missing parsers when entering buffer
---   auto_install = true,
--- 
---   -- List of parsers to ignore installing (for "all")
---   ignore_install = { "javascript", "purescript" },
--- 
---   highlight = {
---     -- `false` will disable the whole extension
---     enable = true,
--- 
---     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
---     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
---     -- Using this option may slow down your editor, and you may see some duplicate highlights.
---     -- Instead of true it can also be a list of languages
---     additional_vim_regex_highlighting = false,
---   },
--- 
---   refactor = {
---     highlight_definitions = {
---       enable = true,
---       -- Set to false if you have an `updatetime` of ~100.
---       clear_on_cursor_move = true,
---     },
---     highlight_current_scope = { enable = false },
---   },
--- 
---   playground = {
---     enable = true,
---     disable = {},
---     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
---     persist_queries = false, -- Whether the query persists across vim sessions
---     keybindings = {
---       toggle_query_editor = 'o',
---       toggle_hl_groups = 'i',
---       toggle_injected_languages = 't',
---       toggle_anonymous_nodes = 'a',
---       toggle_language_display = 'I',
---       focus_language = 'f',
---       unfocus_language = 'F',
---       update = 'R',
---       goto_node = '<cr>',
---       show_help = '?',
---     },
---   },
--- }
-
--- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
--- parser_config.purescript = {
---     install_info = {
---       url = "https://github.com/Maskhjarna/tree-sitter-purescript",
---       files = {"src/parser.c", "src/scanner.c"}, 
---       branch = "main",
---     },
---     filetype = "purescript", -- if filetype does not match the parser name
--- }
--- vim.treesitter.language.register('purescript', 'mask_purescript')
+local love2d = require "love2d"
+love2d.setup {}

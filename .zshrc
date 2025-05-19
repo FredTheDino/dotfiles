@@ -58,6 +58,7 @@ fi
 export LS_OPTIONS='--color=auto'
 eval "$(dircolors -b)"
 alias ls='ls $LS_OPTIONS'
+alias ranger='lf'
 
 # Custom config
 export BROWSER=$(which firefox)
@@ -115,7 +116,7 @@ GPG_TTY=$(tty)
 export GPG_TTY
 export XDG_DATA_HOME=$HOME/.local/share
 
-export PATH=~/.local/bin:~/Apps:$PATH:/root/.local/share/gem/ruby/3.0.0/bin:~/.cargo/bin/
+export PATH=/home/ed/Code/Odin/:/home/ed/.nimble/bin:~/.local/bin:~/Apps:$PATH:/root/.local/share/gem/ruby/3.0.0/bin:~/.cargo/bin/:/home/ed/Code/Odin/
 
 [ -f "/home/ed/.ghcup/env" ] && source "/home/ed/.ghcup/env" # ghcup-env
 

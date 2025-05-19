@@ -1,7 +1,7 @@
 [user]
   email = edvard.thornros@gmail.com
   name = Edvard Thörnros
-  signingkey = /home/ed/.ssh/signing_ed25519
+  signingkey = /home/ed/.ssh/signing
 [log]
   abbrevCommit = true
   oneline = true
@@ -17,7 +17,7 @@
   autoSetupRemote = true
 [commit]
   verbose = true
-  # gpgsign = true
+  gpgsign = true
 [status]
   short = true
 
@@ -54,4 +54,5 @@
 [branch]
 	sort = -committerdate
 
-
+[gpg]
+	format = ssh
