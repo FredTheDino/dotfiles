@@ -1,0 +1,11 @@
+max-history=10
+
+font=FantasqueSansM Nerd Font
+
+background-color=#cdd6f4
+text-color=#110011
+border-size=0
+border-radius=2
+progress-color=over #cba6f7
+icons=0
+text-alignment=right

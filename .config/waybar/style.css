@@ -1,0 +1,108 @@
+@define-color active rgba(40, 0, 30, 0.5);
+@define-color alert rgba(255, 255, 0.5, 1.0);
+@define-color none rgba(0, 0, 0, 0);
+
+@define-color sneek rgba(40, 0, 30, 0.6);
+@define-color lighten rgba(255, 230, 255, 0.6);
+
+@define-color bg rgba(0, 0, 0, 0);
+
+* {
+	font-family: FantasqueSansM Nerd Font;
+	font-size: 10px;
+  padding: 0px;
+  margin: 0px;
+}
+
+#waybar {
+	background-color: @bg;
+}
+
+box.modules-right {
+	margin-right: 5px;
+}
+
+/* BEGIN LEFT - SIDE */
+
+#workspaces {
+}
+
+#workspaces button {
+	border-radius: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	padding-right: 2px;
+	padding-left: 0px;
+	background-color: @none;
+  color: @sneek;
+}
+
+#workspaces button.focused {
+	background-color: @active;
+  color: @lighten;
+}
+
+#workspaces button.urgent {
+	background-color: @alert;
+  color: @lighten;
+}
+
+box.modules-left * {
+	padding: 0px;
+	margin-right: 0px;
+}
+
+
+#scratchpad {
+	padding: 2px;
+	color: @sneek;
+}
+
+#scratchpad.empty {
+	color: @none;
+}
+
+#scratchpad.empty {
+	color: @none;
+}
+
+#window {
+	margin: 5px;
+	color: @sneek;
+}
+/* END LEFT - SIDE */
+
+/* BEGIN CENTER */
+
+#clock {
+	color: @sneek;
+  font-weight: bold;
+}
+
+/* END CENTER */
+/* BEGIN RIGHT */
+
+#network {
+	color: @sneek;
+	font-size: 1.5em;
+	min-width: 2em;
+	padding-right: 2px;
+}
+
+#cpu {
+	color: @sneek;
+	font-size: 1.5em;
+	min-width: 2em;
+	padding-right: 0px;
+}
+
+#memory {
+	color: @sneek;
+  font-weight: bold;
+	font-size: 1em;
+	min-width: 2em;
+	padding-right: 4px;
+	padding-left: 4px;
+}
+
+/* END RIGHT */

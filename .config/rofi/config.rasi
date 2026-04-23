@@ -1,23 +1,23 @@
 * {
-	background:                      #372725;
-	bordercolor:                     #372725;
-	separatorcolor:                  #d7d2b7;
-	normal-background:               #372725;
-	normal-foreground:               #d7d2b7;
-	alternate-normal-foreground:     #493a35;
-  alternate-normal-background:     #493a35;
-	selected-normal-background:      #586e75;
-	selected-normal-foreground:      #d7d2b7;
-	active-background:               #372725;
-	active-foreground:               #6a94b5;
-	alternate-active-background:     #493a35;
-	selected-active-background:      #6a94b5;
-	selected-active-foreground:      #d7d2b7;
-	urgent-background:               #372725;
-	urgent-foreground:               #ef5d32;
-	alternate-urgent-background:     #493a35;
-	selected-urgent-background:      #ef5d32;
-	selected-urgent-foreground:      #d7d2b7;
+	background:                      #f2cdcd;
+	bordercolor:                     #110011;
+	separatorcolor:                  #110011;
+	normal-background:               #f2cdcd;
+	normal-foreground:               #110011;
+  alternate-normal-background:     #f2cdcd;
+	alternate-normal-foreground:     #110011;
+	selected-normal-background:      #b4befe;
+	selected-normal-foreground:      #110011;
+	active-background:               #f2cdcd;
+	alternate-active-background:     #f5e0dc;
+	active-foreground:               #b4befe;
+	selected-active-background:      #b4befe;
+	selected-active-foreground:      #110011;
+	urgent-background:               #110011;
+	urgent-foreground:               #eba0ac;
+	alternate-urgent-background:     #f2cdcd;
+	selected-urgent-background:      #eba0ac;
+	selected-urgent-foreground:      #110011;
 	alternate-normal-foreground:     @normal-foreground;
 	alternate-urgent-foreground:     @urgent-foreground;
 	alternate-active-foreground:     @active-foreground;
@@ -27,7 +27,7 @@
 * {
   border-color: @foreground;
   background-color: @background;
-  text-color: #d7d2b7;
+  text-color: @normal-foreground;
   spacing: 0;
   width: 512px;
 }
@@ -38,18 +38,18 @@ inputbar {
 }
 
 prompt {
-  padding: 16px;
+  padding: 8px;
   border: 0 0px 0 0;
 }
 
 textbox {
   border: 0 0 0px 0;
-  padding: 8px 16px;
+  padding: 8px 8;
   text-color: @foreground;
 }
 
 entry {
-  padding: 16px;
+  padding: 8px;
 }
 
 listview {
@@ -61,7 +61,7 @@ listview {
 
 element {
   border: 0 0 0px 0;
-  padding: 16px;
+  padding: 8;
 }
 
 element normal.normal {

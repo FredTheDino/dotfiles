@@ -1,0 +1,131 @@
+// -*- mode: jsonc -*-
+{
+    "reload-style-on-change": true,
+    "layer": "top",
+    "position": "top",
+    "height": 5,
+    "spacing": 2,
+
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+        "sway/scratchpad",
+        "sway/window"
+    ],
+    "modules-center": [
+	    "clock"
+    ],
+    "modules-right": [
+        "network",
+        "cpu",
+        "memory",
+        "backlight",
+        "battery"
+    ],
+    // Modules configuration
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "warp-on-scroll": false,
+        "format": "{name}",
+        "format-icons": {
+            // "1": "󰈮",
+            // "3": "󰈹",
+            // "0": "󰭹",
+            // "urgent": "󱡝",
+            // "focused": "",
+            // "default": ""
+        }
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/scratchpad": {
+        "format": "󰊠",
+        "show-empty": true,
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "sway/window": {
+    	"format": "{title}",
+    	"max-length": 30,
+	"rewrite": {
+	    "(.*) — Mozilla Firefox": "$1",
+	    "nvim (.*) (.*)": "v $1",
+	    "man (.*)": "m $1",
+	    "(.*) — fish": "><> $1"
+	}
+    },
+    "clock": {
+        "tooltip-format": "<tt>{calendar}</tt>",
+	"format": "{:%R}",
+        "format-alt": "{:%A %R %d-%M-%Y }",
+	"calendar": {
+		"iso8601": true,
+		"mode"          : "year",
+		"mode-mon-col"  : 3,
+		"weeks-pos"     : "left",
+		"on-scroll"     : 1,
+		"format": {
+			"months":     "<span color='#ffead3'><b>{}</b></span>",
+			"days":       "<span color='#ecc6d9'><b>{}</b></span>",
+			"weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+			"weekdays":   "",
+			"today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+		}
+	},
+	"actions":  {
+		"on-click-right": "mode",
+		"on-scroll-up": "shift_up",
+		"on-scroll-down": "shift_down"
+	}
+    },
+	"cpu": {
+	     "format": "{icon}",
+	     "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+	},
+    "memory": {
+        "format": "{}%"
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}%",
+        "format-charging": "{capacity}% {time}",
+        "format-alt": "{time} {capacity}% {power}w",
+    },
+    "network": {
+        "format-wifi": "",
+        "format-ethernet": "󰈀",
+        "format-linked": "󰊗",
+        "format-disconnected": "󰀝",
+        "tooltip-format": "{ifname} {essid} {signalStrength}% {ipaddr}/{cidr} via {gwaddr}"
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": "󰅶 {icon} {format_source}",
+        "format-muted": "󰅶 {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "󰂑",
+            "headset": "󰂑",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+}
