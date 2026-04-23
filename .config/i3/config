@@ -127,7 +127,7 @@ mode $resize {
 bindsym $mod+Shift+x exec --no-startup-id swaylock -c 110011 -n -r --indicator-radius 20 --separator-color 00000000 --ring-ver-color 00000000 --inside-ver-color cba6f7 --line-ver-color cba6f7 --line-wrong-color eba0ac --inside-wrong-color eba0ac --inside-color f2cdcd --ring-color f2cdcd --key-hl-color 110011 --indicator-idle-visible
 
 exec waybar
-exec swaybg -i ~/.config/i3/wallpaper.jpeg --mode fit
+exec swaybg -i ~/.config/i3/wallpaper.jpeg --mode fill
 exec mako
 
 set $subtle #110011
