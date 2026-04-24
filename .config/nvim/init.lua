@@ -34,7 +34,12 @@ vim.pack.add({
 	gh("nvim-telescope/telescope-fzf-native.nvim"),
 	gh("rafcamlet/nvim-luapad"),
 	gh("stevearc/conform.nvim"),
+	gh("ojroques/nvim-hardline"),
 })
+
+vim.o.termguicolors = false
+vim.cmd.colorscheme("dim")
+vim.api.nvim_set_hl(0, "SignColumn", {})
 
 vim.g.maplocalleader = ";"
 vim.o.spelllang = "en_us"
@@ -51,7 +56,7 @@ vim.o.breakindent = true
 vim.o.linebreak = true
 vim.o.undofile = true
 vim.o.exrc = true
-vim.o.cmdheight = 0
+vim.o.cmdheight = 1
 vim.o.signcolumn = "yes"
 vim.o.number = false
 
@@ -82,6 +87,24 @@ require("oil").setup()
 vim.keymap.set("n", "-", "<CMD>Oil<CR>")
 
 require("auto-session").setup()
+
+require("hardline").setup({
+	bufferline = false,
+	bufferline_settings = {
+		exclude_terminal = false,
+		show_index = false,
+	},
+	theme = "gruvbox_minimal",
+	sections = {
+		{ class = "mode", item = require("hardline.parts.mode").get_item },
+		{ class = "med", item = require("hardline.parts.filename").get_item },
+		"%<",
+		{ class = "low", item = "%=" },
+		{ class = "low", item = require("hardline.parts.git").get_item, hide = 100 },
+		{ class = "med", item = require("hardline.parts.filetype").get_item, hide = 60 },
+		{ class = "mode", item = "%l/%L %c %P %O" },
+	},
+})
 
 vim.keymap.set({ "n" }, "<space>g", '<cmd>Telescope live_grep search_dirs=["lib/","src/","tests/","crates/"]<CR>')
 vim.keymap.set({ "n" }, "<space>f", "<cmd>Telescope git_files<cr>")
@@ -143,8 +166,3 @@ end, { desc = "Show the LSP log" })
 vim.api.nvim_create_user_command("Neoformat", function()
 	conform.format()
 end, { desc = "Format current buffer" })
-
-vim.o.termguicolors = true
-vim.cmd.colorscheme("dim")
-vim.api.nvim_set_hl(0, "SignColumn", {})
-
