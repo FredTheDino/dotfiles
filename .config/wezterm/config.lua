@@ -6,60 +6,30 @@ local config = wezterm.config_builder()
 
 
 -- local scheme = wezterm.get_builtin_color_schemes()['Everforest Dark (Gogh)']
-local scheme = wezterm.get_builtin_color_schemes()['Bamboo']
+-- local scheme = wezterm.get_builtin_color_schemes()['Django']
 -- scheme.background  = '#372725'
 -- config.color_schemes = { ["mine"] = scheme }
-config.color_scheme = "Bamboo"
+-- config.color_scheme = 'Belafonte Night (Gogh)'
+-- config.color_scheme = 'Everforest Dark (Gogh)'
+--
+local scheme = wezterm.get_builtin_color_schemes()['GruvboxDarkHard']
+scheme.background  = '#11121b'
+config.color_schemes = { ["mine"] = scheme }
+config.color_scheme = "mine"
 
 config.hide_tab_bar_if_only_one_tab = true
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.use_fancy_tab_bar = false
--- config.colors = {
---   tab_bar = {
---     background = scheme["background"],
--- 
---     active_tab = {
---       bg_color = scheme["bg_color"],
---       fg_color = scheme["fg_color"],
---       intensity = 'Normal',
---       underline = 'None',
---       italic = false,
---       strikethrough = false,
---     },
--- 
---     inactive_tab = {
---       bg_color = scheme["ansi"][1],
---       fg_color = scheme["fg_color"],
---     },
--- 
---     inactive_tab_hover = {
---       bg_color = schemes["bg_color"],
---       fg_color = scheme["brights"][8],
---       italic = true,
---     },
--- 
---     new_tab = {
---       bg_color = schemes["bg_color"],,
---       fg_color = '#e0dbb7',
---     },
--- 
---     new_tab_hover = {
---       bg_color = '#6b4e32',
---       fg_color = '#e0dbb7',
---       italic = true,
---     },
---   },
--- }
 
-config.font = wezterm.font('Monaco', {})
+config.font = wezterm.font('FantasqueSansM Nerd Font', {})
 -- config.font = wezterm.font('FantasqueSansM Nerd Font', {})
 -- config.font = wezterm.font('VictorMono Nerd Font', {})
-config.font_size = 11.0
+config.font_size = 13.0
 config.audible_bell = "Disabled"
 config.bold_brightens_ansi_colors = "BrightAndBold"
 
-config.window_background_opacity = 0.8
+-- config.window_background_opacity = 0.8
 
 config.window_padding = {
   left = 0,

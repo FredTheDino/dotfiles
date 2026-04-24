@@ -58,7 +58,6 @@ fi
 export LS_OPTIONS='--color=auto'
 eval "$(dircolors -b)"
 alias ls='ls $LS_OPTIONS'
-alias ranger='lf'
 
 # Custom config
 export BROWSER=$(which firefox)
@@ -82,6 +81,7 @@ alias capslock='xdotool key Caps_Lock'
 alias keys='setxkbmap se -option caps:escape nodeadkeys'
 alias skeys='sway input 1:1:AT_Translated_Set_2_keyboard xkb_layout se; sway input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape'
 alias td='todo.sh'
+alias nec='NVIM_APPNAME=nvim-eclipse nvim'
 
 # Just throw in the keyconfig here
 

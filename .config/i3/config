@@ -14,10 +14,6 @@ default_floating_border normal
 # Hide borders
 hide_edge_borders none
 
-# change borders
-bindsym $mod+u border none
-bindsym $mod+y border pixel 1
-bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -27,17 +23,18 @@ font pango:DejaVu Sans Mono 11
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 # start a terminal
-bindsym $mod+Return exec wezterm --config-file=/home/ed/.config/wezterm/config.lua
-bindsym $mod+t      exec wezterm --config-file=/home/ed/.config/wezterm/config.lua --config initial_cols=50 --config initial_rows=30 -e /home/ed/Apps/todo.sh
+# bindsym $mod+Return exec wezterm --config-file=/home/ed/.config/wezterm/config.lua
+bindsym $mod+Return exec foot
+
+bindsym $mod+c exec --no-startup-id kill-n-pick.sh
+bindsym $mod+i exec --no-startup-id todays-date.sh
+bindsym $mod+Shift+i exec --no-startup-id todays-date.sh --iso-8601=date
 
 # kill focused window
 bindsym $mod+e kill
 
 # start program launcher
 bindsym $mod+p exec --no-startup-id rofi -combi-modi drun#window -show combi -font "monaco 11"
-
-# launch categorized menu
-bindsym $mod+z exec --no-startup-id morc_menu
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
@@ -46,7 +43,7 @@ bindsym $mod+z exec --no-startup-id morc_menu
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 exec --no-startup-id waybar
 exec --no-startup-id setxkbmap se -option caps:escape nodeadkeys
-exec --no-startup-id swaybg -i .config/wallpapers/lone_tree.jpg -m fill
+exec --no-startup-id swaybg -i ".config/wallpapers/Coastline at Lover's Point III, 1993 by Hiroshi Nagai.png" -m fill
 exec --no-startup-id 'sway input 1:1:AT_Translated_Set_2_keyboard xkb_layout se; sway input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape'
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
@@ -59,14 +56,6 @@ exec --no-startup-id 'sway input 1:1:AT_Translated_Set_2_keyboard xkb_layout se;
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
 # Start Applications
-bindsym $mod+Ctrl+b exec  wezterm --config-file=/home/ed/.config/wezterm/config.lua -e 'bmenu'
-bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec  wezterm --config-file=/home/ed/.config/wezterm/config.lua -e ranger
-bindsym $mod+Shift+F3 exec pcmanfm_pkexec
-bindsym $mod+F5 exec  wezterm --config-file=/home/ed/.config/wezterm/config.lua -e 'mocp'
-bindsym $mod+Ctrl+t exec --no-startup-id pkill picom
-bindsym $mod+Shift+Ctrl+t exec --no-startup-id picom -b
-bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym Print exec grim -g "$(slurp)" - | swappy -f - -o - | wl-copy
 bindsym $mod+Print exec grim -g "$(slurp)" - | swappy -f - -o - | wl-copy
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
@@ -384,6 +373,6 @@ input 2362:597:UNIW0001:00_093A:0255_Touchpad tap enable
 input 2362:597:UNIW0001:00_093A:0255_Touchpad natural_scroll enable
 input 2362:597:UNIW0001:00_093A:0255_Touchpad scroll_factor 0.5
 input 2362:597:UNIW0001:00_093A:0255_Touchpad scroll_factor 0.5
-input 1:1:AT_Translated_Set_2_keyboard xkb_layout se
-input 1:1:AT_Translated_Set_2_keyboard xkb_variant nodeadkeys
-input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape
+input type:keyboard xkb_layout se
+input type:keyboard xkb_variant nodeadkeys
+input type:keyboard xkb_options caps:escape
